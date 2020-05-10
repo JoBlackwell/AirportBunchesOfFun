@@ -47,10 +47,12 @@ game.lastTimeSized = new Date();        // Used to track window resizing without
 game.player = {
     score: 0,
     initials: "ZZ",
+    timeTotal: 0,   // Time in seconds
 	// Reset player object variables
     reset: function () {
         this.score = 0;
         this.initials = "";
+        this.timeTotal = 0;
 		// Reset global score
 		game.score = 0;
     }
