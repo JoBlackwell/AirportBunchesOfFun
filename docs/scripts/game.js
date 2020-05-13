@@ -47,10 +47,12 @@ game.lastTimeSized = new Date();        // Used to track window resizing without
 game.player = {
     score: 0,
     initials: "ZZ",
+    timeTotal: 0,   // Time in seconds
 	// Reset player object variables
     reset: function () {
         this.score = 0;
         this.initials = "";
+        this.timeTotal = 0;
 		// Reset global score
 		game.score = 0;
     }
@@ -223,28 +225,13 @@ game.timeoutOverlay.init(); // Force initialization of the timer during script l
 
 // Image hooks (Shorthand Object Notation)
 // - Start Scene
-//   - Images
-
-//   - Buttons
-
-
+$.get("scripts/scene_start.js");
 // - Play Scene
-//   - Images
-
-//   - Buttons
-
-
+$.get("scripts/scene_play.js");
 // - End Scene
-//   - Images
-
-//   - Buttons
-
-
+$.get("scripts/scene_end.js");
 // - Leaderboard Scene
-//   - Images
-
-//   - Buttons
-
+$.get("scripts/scene_leaderboard.js");
 
 /* Game States and transitions
  ** -- Start Scene
