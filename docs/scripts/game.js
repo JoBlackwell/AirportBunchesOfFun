@@ -15,7 +15,7 @@
 // DESCRIPTION:     Controls the heart of Airport Bunches of Fun
 // LAST UPDATE:     05/07/2020 - Created main game.js file to work from
 //========================================================================
-
+ 
 // Initialize game object
 window.game = Object.create(GameObject.prototype);
 
