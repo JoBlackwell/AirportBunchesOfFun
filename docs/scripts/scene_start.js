@@ -32,8 +32,8 @@ game.ABoFTitle = {
     org_height: 262 * game.scale,
     width: 0,
     height: 0,
-    posX: 0,
-    posY: 0,
+    posX: 753,
+    posY: 40,
     org_posY: 40,
 	// Adjust the object's transform
     resize: function () {
@@ -89,6 +89,47 @@ game.menuButton = {
         this.image.style.width = this.width + "px";
         this.image.style.height = this.height + "px";
         this.image.style.zIndex = 1;
+    },
+	// Handle user interaction based on game state
+    clickMe: function () {
+		// Determine the current game state
+        switch (game.currState) {
+            case 'start':
+				// Inform Google the user quit the game
+                game.google.quit();
+				// Redirect the user to the O'Hare landing page
+                window.location.replace("http://www.flywithbutchohare.com/");
+                break;
+            default:
+				// All but the Start Scene returns to the Start Scene
+				// Hide all elements
+                game.hideElements.hideAll();
+				// Reset the player object
+                game.player.reset();
+				// Update the words list
+                game.updateWords.update();
+				// Hide the keypad
+                game.inputKeypad.hideKeypad();
+				// Hide the letter display spaces
+                game.playLetterSpaces.hideKeypad();
+				// Set the flag for a new word to false
+                game.readyForNextWord = false;
+				// Reset the plane manager
+                game.planeManager.resetElements();
+				// Reset the game's timer
+                game.playTimerBox.resetTimer();
+                // Reset plane animation
+                game.leaderboardAnimation.resetElements();
+                // Reset leaderboard table
+                game.top10players.hideTable();
+				// Refresh the timeout timer
+                game.timeoutOverlay.refreshTimer();
+				// Set the new game state to the Start Scene
+                game.currState = game.gameState[0];
+				// Redraw all objects
+                game.drawOnce();
+                break;
+        }
     }
 };
 game.menuButton.init();// Force initialize object on first script load
@@ -129,6 +170,25 @@ game.startButton = {
         this.image.style.width = this.width + "px";
         this.image.style.height = this.height + "px";
         this.image.style.zIndex = 1;
+    },
+	// Handle user interaction based on game state
+    clickMe: function () {
+		// Inform Google the user started playing a game
+        game.google.start();
+        // Set game score to zero
+        game.score = 0;
+        // Reset the player object
+        game.player.reset();
+        // Get the current sponsor
+        game.getSponsor();
+        // Refresh the timeout timer
+		game.timeoutOverlay.refreshTimer();
+        // Set the new game state to Play Scene
+        game.currState = game.gameState[1];
+        // Hide all elements
+        game.hideElements.hideAll();
+        // Redraw all elements
+        game.drawOnce();
     }
 };
 game.startButton.init(); // Force object initialization on first script load
@@ -170,6 +230,21 @@ game.leaderboardButton = {
         this.image.style.height = this.height + "px";
         this.image.style.zIndex = 1;
     },
+	// Handle user interaction based on game state
+    clickMe: function () {
+        // Inform Google the user went straight to the leaderboard
+        game.google.leaderboard();
+        // Clear the player object
+        game.player.reset();
+        // Refresh the timeout timer
+		game.timeoutOverlay.refreshTimer();
+        // Update game state to Leaderboard Scene
+        game.currState = game.gameState[3];
+        // Hide all elements
+        game.hideElements.hideAll();
+        // Redraw all elements
+        game.drawOnce();
+    }
 };
 game.leaderboardButton.init(); // Force object initialization on first script load
 
@@ -210,5 +285,12 @@ game.quitButton = {
         this.image.style.height = this.height + "px";
         this.image.style.zIndex = 1;
     },
+	// Handle user interaction based on game state
+    clickMe: function () {
+        // Inform Google the user quit the game
+        game.google.quit();
+        // Redirect the user to the O'Hare landing page
+        window.location.replace("http://www.flywithbutchohare.com/");
+    }
 };
 game.quitButton.init(); // Force object initialization on first script load
