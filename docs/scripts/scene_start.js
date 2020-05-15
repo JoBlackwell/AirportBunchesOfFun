@@ -97,8 +97,8 @@ game.startButton = {
 	// Get handle to image
     image: document.getElementById("startButton"),
 	// Declare object transform information
-    org_width: 256 * game.scale * 1.0,
-    org_height: 256 * game.scale * 1.0,
+    org_width: 256 * game.scale,
+    org_height: 256 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -137,8 +137,8 @@ game.leaderboardButton = {
 	// Get handle to image
     image: document.getElementById("leaderboardButton"),
 	// Declare object transform information
-    org_width: 256 * game.scale * 1.0,
-    org_height: 256 * game.scale * 1.0,
+    org_width: 256 * game.scale,
+    org_height: 256 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -177,8 +177,8 @@ game.quitButton = {
 	// Get handle to image
     image: document.getElementById("quitButton"),
 	// Declare object transform information
-    org_width: 256 * game.scale * 1.0,
-    org_height: 256 * game.scale * 1.0,
+    org_width: 256 * game.scale,
+    org_height: 256 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
