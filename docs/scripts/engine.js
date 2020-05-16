@@ -312,13 +312,11 @@ engine.windowControl = {
         // DEBUG
         // Report the viewport dimensions when the window is resized
         console.log("<ENGINE> (w: " + engine.canvas.width + ", h: " + engine.canvas.height + ")");
-        console.log(`<ENGINE> W: ${engine.canvas.width}, H: ${engine.canvas.height}\nwP: ${engine.widthProportion}, hP: ${engine.heightProportion}`);
 
         // Return and set the engine's height to the canvas' height
         return engine.height = engine.canvas.height;
     }
 };
-engine.windowControl.updateWindow(); // Force update window
 
 // Handle window resizing events
 window.onresize = function (e) {
