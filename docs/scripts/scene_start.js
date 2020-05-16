@@ -41,6 +41,8 @@ game.ABoFTitle = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = engine.width / 2 - this.width / 2;
         this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
+        console.log(`X: ${this.posX}, Y: ${this.posY}\nW: ${this.width}, H: ${this.height}`);
+        console.log(`[Engine] W: ${engine.width}, H: ${engine.height}\nwP: ${engine.widthProportion}, hP: ${engine.heightProportion}`);
     },
 	// Draw the object
     draw: function () {
@@ -106,22 +108,6 @@ game.menuButton = {
                 game.hideElements.hideAll();
 				// Reset the player object
                 game.player.reset();
-				// Update the words list
-                game.updateWords.update();
-				// Hide the keypad
-                game.inputKeypad.hideKeypad();
-				// Hide the letter display spaces
-                game.playLetterSpaces.hideKeypad();
-				// Set the flag for a new word to false
-                game.readyForNextWord = false;
-				// Reset the plane manager
-                game.planeManager.resetElements();
-				// Reset the game's timer
-                game.playTimerBox.resetTimer();
-                // Reset plane animation
-                game.leaderboardAnimation.resetElements();
-                // Reset leaderboard table
-                game.top10players.hideTable();
 				// Refresh the timeout timer
                 game.timeoutOverlay.refreshTimer();
 				// Set the new game state to the Start Scene
@@ -179,8 +165,6 @@ game.startButton = {
         game.score = 0;
         // Reset the player object
         game.player.reset();
-        // Get the current sponsor
-        game.getSponsor();
         // Refresh the timeout timer
 		game.timeoutOverlay.refreshTimer();
         // Set the new game state to Play Scene
