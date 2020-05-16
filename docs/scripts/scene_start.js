@@ -41,8 +41,6 @@ game.ABoFTitle = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = engine.width / 2 - this.width / 2;
         this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
-        console.log(`X: ${this.posX}, Y: ${this.posY}\nW: ${this.width}, H: ${this.height}`);
-        console.log(`[Engine] W: ${engine.width}, H: ${engine.height}\nwP: ${engine.widthProportion}, hP: ${engine.heightProportion}`);
     },
 	// Draw the object
     draw: function () {
