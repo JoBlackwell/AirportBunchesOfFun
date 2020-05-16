@@ -15,7 +15,7 @@
 // DESCRIPTION:     Controls the heart of Airport Bunches of Fun
 // LAST UPDATE:     05/07/2020 - Created main game.js file to work from
 //========================================================================
-
+ 
 // Initialize game object
 window.game = Object.create(GameObject.prototype);
 
@@ -40,6 +40,7 @@ for (var i = 0; i < game.mouse.length; i++) {
 
 // Declare Game Variables
 // - Globals
+game.scale = 1.0;
 game.timeoutTime = 120;					// Timeout time before returning to landing page
 game.lastTimeSized = new Date();        // Used to track window resizing without window events
 
