@@ -28,9 +28,9 @@ game.AirportBunchesOfFunTitleSmall = {
 };
 
 //End_Scene Play background 
-game.playBackground = {
+game.endBackground = {
 	// Get handle to image
-    image: document.getElementById("ABoFBackground"),
+    image: document.getElementById("endBackground"),
 	// Declare object transform information
     org_width: 1920,
     org_height: 1080,
@@ -154,7 +154,7 @@ game.endKeyboardKeys = {
 //End_Scene Menu Button
 game.endMenuButton = {
 	// Get handle to image
-    image: document.getElementById("wordFlightMenuButton"),
+    image: document.getElementById("menuButton"),
 	// Declare object transform information
     org_width: 275 * game.scale,
     org_height: 138 * game.scale,
@@ -239,15 +239,12 @@ game.endSubmitButton = {
                 console.log(this.responseText);
 				
 				// TRANSITION
-				// Hide keypad
-				game.inputKeypad.hideKeypad();
 				// Change game state to Leaderboard Scene
                 game.currState = game.gameState[3];
 				// Hide all elements
                 game.hideElements.hideAll();
 				// Redraw all elements
                 game.drawOnce();
-				
 				// Inform Google the player completed a playthrough
 				game.google.finish();
             }
