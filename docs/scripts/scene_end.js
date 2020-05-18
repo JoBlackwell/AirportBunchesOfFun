@@ -250,7 +250,7 @@ game.endKeyboardBackground = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         
-        this.posX = ((engine.width - (game.endTitle.posX + game.endTitle.width)) + (this.width/2)) / 2;
+        this.posX = ((engine.width - (game.endTitle.posX + game.endTitle.width)) + (this.width/2)) / 4;
         this.posY = engine.height - this.height;
         
         console.log(`<End:KeyboardBG>\nW: ${this.width}, H: ${this.height}\nX: ${this.posX}, Y: ${this.posY}`);
@@ -278,6 +278,8 @@ game.endKeyboardKeys = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = game.endKeyboardBackground.posX + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posY = game.endKeyboardBackground.posY + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        
+        console.log(`<End:Key_A>\nW: ${this.width}, H: ${this.height}\nX: ${this.posX}, Y: ${this.posY}`);
     },
 	// Draw the object
     draw: function () {
