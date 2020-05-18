@@ -180,9 +180,19 @@ game.drawOnce = function () {
             break;
         case 'end':
             // Draw images on the canvas
-			
-            // Display buttons
+			this.endBackground.draw();
+            this.endTimeBoardBG.draw();
+            this.endTitle.draw();
+            this.endGamePoints.draw();
+            this.endPlayerScore.draw();
+            this.endKeyboardBackground.draw();
+            this.endGameOver.draw();
+            this.endInitialsBG.draw();
+            this.endPlayerInitials.draw();
             
+            // Display buttons
+            this.endSubmitButton.adjustStyle();
+            this.endMenuButton.adjustStyle();
             break;
         case 'leaderboard':
             // Draw images on the canvas
