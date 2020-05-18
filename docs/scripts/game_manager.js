@@ -174,15 +174,33 @@ game.drawOnce = function () {
             break;
         case 'play':
             // Draw images on the canvas
-			
+			this.playBackground.draw();
+            this.playTitle.draw();
+            this.playTimer.draw();
+            this.playTimerBox.draw();
+            this.playScore.draw();
+            this.playScoreBox.resize();
             // Display buttons
-            
+            this.playMenuButton.adjustStyle();
+            this.playKeyPadSpace.adjustStyle();
+            this.inputKeypad.adjustStyle();
+            this.playLetterSpaces.adjustStyle();
+            this.inputKeypad.adjustStyle();
             break;
         case 'end':
             // Draw images on the canvas
-			
+			this.endBackground.draw();
+            this.endKeyboardBackground.draw();
+            this.endGamePoints.draw();
+            this.endInitials.draw();
+            this.AirportBunchesOfFunTitleSmall.draw();
+            this.endPlayerScore.draw();
+            this.endPlayerInitials.draw();
+            this.endGameOver.draw();
             // Display buttons
-            
+            this.endSubmitButton.adjustStyle();
+            this.endMenuButton.adjustStyle();
+            this.inputKeypad.adjustStyle();
             break;
         case 'leaderboard':
             // Draw images on the canvas
