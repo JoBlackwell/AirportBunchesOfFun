@@ -2,38 +2,14 @@
 
 //Start End Scene
 
-//AirportBunchesOfFunTitle
-game.AirportBunchesOfFunTitleSmall = {
-	// Get handle to image
-    image: document.getElementById("AirportBunchesOfFunTitleSmall"),
-	// Declare object transform information
-    org_width: 488 * game.scale,
-    org_height: 118 * game.scale,
-    width: 0,
-    height: 0,
-    posX: 0,
-    posY: 0,
-	// Adjust the object's transform
-    resize: function () {
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-    },
-	// Draw the object
-    draw: function () {
-        this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    }
-};
-
+// Images
 //End_Scene Play background 
 game.endBackground = {
 	// Get handle to image
     image: document.getElementById("endBackground"),
 	// Declare object transform information
-    org_width: 1920,
-    org_height: 1080,
+    org_width: 1920 * game.scale,
+    org_height: 1080 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -50,13 +26,132 @@ game.endBackground = {
     }
 };
 
+// Left Panel
+//End_Scene Time Board Background
+game.endTimeBoardBG = {
+	// Get handle to image
+    image: document.getElementById("endTimeBoardBG"),
+	// Declare object transform information
+    org_width: 413 * game.scale,
+    org_height: 350 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    posY: 0,
+    org_posY: 50,
+	// Adjust the object's transform
+    resize: function () {
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        
+        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = Math.max(50, Math.min(40, this.org_posY - engine.heightDifference));
+    },
+	// Draw the object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
+//End_Scene Title Background
+game.endTitle = {
+	// Get handle to image
+    image: document.getElementById("titleWhite"),
+	// Declare object transform information
+    org_width: 413 * game.scale,
+    org_height: 262 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    posY: 0,
+	// Adjust the object's transform
+    resize: function () {
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        
+        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.endTimeBoardBG.posY + game.endTimeBoardBG.height;
+    },
+	// Draw the object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
+//End_Scene Game Points Background
+game.endGamePoints = {
+    // Get handle to image
+    image: document.getElementById("endGamePoints"),
+    // Declare object transform information
+    org_width: 413 * game.scale,
+    org_height: 263 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    poxY: 0,
+	// Adjust the object's transform
+    resize: function () {
+
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+
+        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.endTitle.posY + game.endTitle.height;
+    },
+	// Draw the object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
+//End_Scene Player Score
+game.endPlayerScore = {
+    // Get handle to div element
+    div: document.getElementById("endPlayerScore"),
+    // Declare object transform information
+    org_width: 413 * game.scale,
+    org_height: 263 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    poxY: 0,
+	// Adjust the object's transform
+    resize: function () {
+
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+
+        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.endGamePoints.posY / 3;
+    },
+	// Draw the object
+    draw: function () {
+        this.adjustStyle();
+    },
+	// Apply changes via CSS
+    adjustStyle: function () {
+        this.resize();
+        this.div.style.position = "absolute";
+        this.div.style.display = "block";
+        this.div.style.left = this.posX.toString() + "px";
+        this.div.style.top = this.posY.toString() + "px";
+        this.div.style.width = this.width + "px";
+        this.div.style.height = this.height + "px";
+        this.div.style.zIndex = 1;
+    }
+};
+
+// Game Over Area
 //End_Scene Game Over
 game.endGameOver = {
 	// Get handle to image
     image: document.getElementById("endGameOver"),
 	// Declare object transform information
-    org_width: 750 * game.scale,
-    org_height: 205 * game.scale,
+    org_width: 1320 * game.scale,
+    org_height: 210 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -77,8 +172,8 @@ game.endGameOver = {
     }
 };
 
-//End_Scene Intials
-game.endInitials = {
+//End_Scene Intials Background
+game.endInitialsBG = {
 	// Get handle to image
     image: document.getElementById("endInitials"),
 	// Declare object transform information
@@ -102,13 +197,50 @@ game.endInitials = {
     }
 };
 
-//End_Scene Keypad
+//End_Scene Player Score
+game.endPlayerInitials = {
+    // Get handle to div element
+    div: document.getElementById("endPlayerInitials"),
+    // Declare object transform information
+    org_width: 811 * game.scale,
+    org_height: 103 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    poxY: 0,
+	// Adjust the object's transform
+    resize: function () {
+
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+
+        this.posX = engine.width / 2 - this.width / 2;
+        this.posY = game.endGamePoints.posY / 3;
+    },
+	// Draw the object
+    draw: function () {
+        this.adjustStyle();
+    },
+	// Apply changes via CSS
+    adjustStyle: function () {
+        this.resize();
+        this.div.style.position = "absolute";
+        this.div.style.display = "block";
+        this.div.style.left = this.posX.toString() + "px";
+        this.div.style.top = this.posY.toString() + "px";
+        this.div.style.width = this.width + "px";
+        this.div.style.height = this.height + "px";
+        this.div.style.zIndex = 1;
+    }
+};
+
+//End_Scene Keypad Background
 game.endKeyboardBackground = {
 	// Get handle to image
     image: document.getElementById("endKeyboardBackground"),
 	// Declare object transform information
-    org_width: 1557 * game.scale,
-    org_height: 283 * game.scale,
+    org_width: 1323 * game.scale,
+    org_height: 870 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -117,8 +249,11 @@ game.endKeyboardBackground = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 2 - this.width / 2;
+        
+        this.posX = ((engine.width - (game.endTitle.posX + game.endTitle.width)) + (this.width/2)) / 2;
         this.posY = engine.height - this.height;
+        
+        console.log(`<End:KeyboardBG>\nW: ${this.width}, H: ${this.height}\nX: ${this.posX}, Y: ${this.posY}`);
     },
 	// Draw the object
     draw: function () {
@@ -129,10 +264,10 @@ game.endKeyboardBackground = {
 
 game.endKeyboardKeys = {
 	// Get handle to image
-    image: document.getElementById("endKeyboardKeys"),
+    image: document.getElementById("endKeyboardKey_A"),
 	// Declare object transform information
-    org_width: 1222 * game.scale,
-    org_height: 221 * game.scale,
+    org_width: 94 * game.scale,
+    org_height: 102 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -151,6 +286,7 @@ game.endKeyboardKeys = {
     }
 };
 
+// Buttons
 //End_Scene Menu Button
 game.endMenuButton = {
 	// Get handle to image
@@ -164,10 +300,12 @@ game.endMenuButton = {
     posY: 0,
 	// Adjust the object's transform
     resize: function () {
-        this.width = this.org_width * (1 - engine.dimensionProportion);
-        this.height = this.org_height * (1 - engine.dimensionProportion);
-        this.posX = engine.width - this.width; // this.org_posX - engine.widthDifference;
-        this.posY = 50 * (1 - engine.dimensionProportion);
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+
+        // Attach Top-Right Side
+        this.posX = engine.width - this.width;
+        this.posY = Math.max(50, Math.min(40, this.org_posY - engine.heightDifference));
     },
 	// Draw the object
     draw: function () {
@@ -191,8 +329,8 @@ game.endSubmitButton = {
 	// Get handle to image
     image: document.getElementById("submitButton"),
 	// Declare object transform information
-    org_width: 265 * game.scale,
-    org_height: 107 * game.scale,
+    org_width: 215 * game.scale,
+    org_height: 86 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
