@@ -165,7 +165,7 @@ game.endGameOver = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
-        this.posX = engine.width / 3 - this.width / 3;
+        this.posX = engine.width / 2 - this.width / 2.5;
         this.posY = game.endGamePoints.posY / 3;
     },
 	// Draw the object
@@ -267,7 +267,7 @@ game.endKeyboardBackground = {
 
 game.endKeyboardKeys = {
 	// Get handle to image
-    image: document.getElementById("endKeyboardKey_A"),
+    image: document.getElementById("endKeyboardKeys"),
 	// Declare object transform information
     org_width: 94 * game.scale,
     org_height: 102 * game.scale,
