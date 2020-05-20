@@ -190,7 +190,7 @@ game.endInitialsBG = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 4 - this.width / 3;
+        this.posX = engine.width / 2 - this.width / 1;
         this.posY = game.endKeyboardBackground.posY - (game.endKeyboardBackground.posY - (game.endGamePoints.posY + game.endGamePoints.height));
     },
 	// Draw the object
@@ -217,8 +217,8 @@ game.endPlayerInitials = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
-        this.posX = engine.width / 2 - this.width / 2;
-        this.posY = game.endGamePoints.posY / 3;
+        this.posX = engine.width / 1 - this.width / 1;
+        this.posY = game.endGamePoints.posY / 1;
     },
 	// Draw the object
     draw: function () {
