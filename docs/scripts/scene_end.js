@@ -128,7 +128,7 @@ game.endPlayerScore = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = game.endGamePoints.posY / 10;
+        this.posY = game.endGamePoints.posY / 1;
     },
 	// Draw the object
     draw: function () {
@@ -190,8 +190,8 @@ game.endInitialsBG = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 2 - this.width / 1;
-        this.posY = game.endKeyboardBackground.posY - (game.endKeyboardBackground.posY - (game.endGamePoints.posY + game.endGamePoints.height));
+        this.posX = engine.width / 2 - this.width / 3;
+        this.posY = game.endGamePoints.posY / 1.4;
     },
 	// Draw the object
     draw: function () {
@@ -217,8 +217,8 @@ game.endPlayerInitials = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
-        this.posX = engine.width / 1 - this.width / 1;
-        this.posY = game.endGamePoints.posY / 1;
+        this.posX = engine.width / 2 - this.width / 120;
+        this.posY = game.endGamePoints.posY / 1.3;
     },
 	// Draw the object
     draw: function () {
@@ -348,7 +348,7 @@ game.endSubmitButton = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = game.endKeyboardBackground.posX + (game.endKeyboardBackground.width - this.width) - 10;
-        this.posY = game.endKeyboardBackground.posY + (game.endKeyboardBackground.height - this.height) / 2;
+        this.posY = game.endKeyboardBackground.posY + (game.endKeyboardBackground.height - this.height) / 1;
     },
 	// Draw the object
     draw: function () {
