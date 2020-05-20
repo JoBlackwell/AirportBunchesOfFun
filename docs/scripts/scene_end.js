@@ -128,7 +128,7 @@ game.endPlayerScore = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = game.endGamePoints.posY / 3;
+        this.posY = game.endGamePoints.posY / 10;
     },
 	// Draw the object
     draw: function () {
@@ -165,7 +165,7 @@ game.endGameOver = {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
-        this.posX = engine.width / 2 - this.width / 2;
+        this.posX = engine.width / 3 - this.width / 3;
         this.posY = game.endGamePoints.posY / 3;
     },
 	// Draw the object
@@ -190,7 +190,7 @@ game.endInitialsBG = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 2 - this.width / 2;
+        this.posX = engine.width / 4 - this.width / 3;
         this.posY = game.endKeyboardBackground.posY - (game.endKeyboardBackground.posY - (game.endGamePoints.posY + game.endGamePoints.height));
     },
 	// Draw the object
