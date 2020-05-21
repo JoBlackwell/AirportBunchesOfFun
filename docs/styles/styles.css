@@ -82,25 +82,25 @@ body {
     text-align: center;
     font-size: 74pt;
     font-family: BigShouldersDisplay-Semibold;
-    color: #FFFFFF;
+    color: #002839;
 }
 /* Play Scene score */
 .score-box {
     position: absolute;
     margin: 0px;
     text-align: center;
-    font-size: 74pt;
+    font-size: 82pt;
     font-family: BigShouldersDisplay-Semibold;
-    color: #FFFFFF;
+    color: #002839;
 }
 /* Play Scene animated score alert */
 .score-alert-box {
     position: absolute;
     margin: 0px;
     text-align: center;
-    font-size: 74pt;
+    font-size: 82pt;
     font-family: BigShouldersDisplay-Semibold;
-    color: #FFFFFF;
+    color: #002839;
 }
 /* Text Effects */
 .glow {
@@ -168,9 +168,9 @@ body {
     position: absolute;
     margin: 0px;
     text-align: center;
-    font-size: 16pt;
+    font-size: 82pt;
     font-family: roboto-bold;
-    color: #f41c63;
+    color: #e84e3d;
 }
 /* Timeout Overlay */
 #timeoutOverlay {
@@ -194,9 +194,9 @@ body {
     position: absolute;
     top: 35%;
     left: 50%;
-    font-size: 5vw;
-    font-family: Roboto-Bold;
-    color: #fff;
+    font-size: 82pt;
+    font-family: BigShouldersDisplay-Semibold;
+    color: #002839;
     -ms-transform: translate(-50%, -65%);
     transform: translate(-50%, -65%);
 }
@@ -204,9 +204,9 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 3vw;
-    font-family: Roboto-Bold;
-    color: #fff;
+    font-size: 82pt;
+    font-family: BigShouldersDisplay-Semibold;
+    color: #002839;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -214,9 +214,9 @@ body {
     position: absolute;
     top: 65%;
     left: 50%;
-    font-size: 4vw;
-    font-family: Roboto-Bold;
-    color: #fff;
+    font-size: 82pt;
+    font-family: BigShouldersDisplay-Semibold;
+    color: #002839;
     -ms-transform: translate(-50%, -35%);
     transform: translate(-50%, -35%);
 }

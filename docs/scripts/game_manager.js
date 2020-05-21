@@ -189,6 +189,7 @@ game.drawOnce = function () {
             this.endGameOver.draw();
             this.endInitialsBG.draw();
             this.endPlayerInitials.draw();
+			this.endKeyboardKeys.draw();
             
             // Display buttons
             this.endSubmitButton.adjustStyle();

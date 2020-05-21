@@ -56,6 +56,42 @@ game.endTimeBoardBG = {
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
+//End_Scene Time Left
+game.TimeLeft = {
+    // Get handle to div element
+    div: document.getElementById("endTimeLeft"),
+    // Declare object transform information
+    org_width: 413 * game.scale,
+    org_height: 263 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    poxY: 0,
+	// Adjust the object's transform
+    resize: function () {
+
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+
+        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.endGamePoints.posY / 1;
+    },
+	// Draw the object
+    draw: function () {
+        this.adjustStyle();
+    },
+	// Apply changes via CSS
+    adjustStyle: function () {
+        this.resize();
+        this.div.style.position = "absolute";
+        this.div.style.display = "block";
+        this.div.style.left = this.posX.toString() + "px";
+        this.div.style.top = this.posY.toString() + "px";
+        this.div.style.width = this.width + "px";
+        this.div.style.height = this.height + "px";
+        this.div.style.zIndex = 1;
+    }
+};
 
 //End_Scene Title Background
 game.endTitle = {
@@ -242,7 +278,7 @@ game.endKeyboardBackground = {
 	// Get handle to image
     image: document.getElementById("endKeyboardBackground"),
 	// Declare object transform information
-    org_width: 1323 * game.scale,
+    org_width: 1500 * game.scale,
     org_height: 870 * game.scale,
     width: 0,
     height: 0,
@@ -250,8 +286,8 @@ game.endKeyboardBackground = {
     posY: 0,
     // Adjust the object's transform
     resize: function () {
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = this.org_width * (2 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (2 - Math.max(engine.widthProportion, engine.heightProportion));
 
         this.posX = ((engine.width - (game.endTitle.posX + game.endTitle.width)) + (this.width/2)) / 4;
         this.posY = engine.height - this.height;
@@ -261,6 +297,7 @@ game.endKeyboardBackground = {
 	// Draw the object
     draw: function () {
         this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
@@ -281,7 +318,36 @@ game.endKeyboardKeys = {
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = game.endKeyboardBackground.posX + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posY = game.endKeyboardBackground.posY + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-    },
+		
+		<div id="inputKeypad" style="display: inline-block; position: absolute; left: 20px; top: 786px; width: 1540px; height: 244px; z-index: 1;"> == $0
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_A.png" name="A">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_B.png" name="B">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_C.png" name="C">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_D.png" name="D">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_E.png" name="E">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_F.png" name="F">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_G.png" name="G">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_H.png" name="H">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_I.png" name="I">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_J.png" name="J">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_K.png" name="K">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_L.png" name="L">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_M.png" name="M">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_N.png" name="N">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_O.png" name="O">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_P.png" name="P">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_Q.png" name="Q">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_R.png" name="R">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_S.png" name="S">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_T.png" name="T">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_U.png" name="U">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_V.png" name="V">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_W.png" name="W">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_X.png" name="X">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_Y.png" name="Y">
+		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_Z.png" name="Z">
+		</div>	
+	},
 	// Draw the object
     draw: function () {
         this.resize();
