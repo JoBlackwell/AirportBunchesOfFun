@@ -189,11 +189,13 @@ game.drawOnce = function () {
             this.endGameOver.draw();
             this.endInitialsBG.draw();
             this.endPlayerInitials.draw();
-			this.endKeyboardKeys.draw();
             
             // Display buttons
             this.endSubmitButton.adjustStyle();
             this.endMenuButton.adjustStyle();
+            
+            // Keypad
+            this.endKeyboardKeys.draw();
             break;
         case 'leaderboard':
             // Draw images on the canvas
