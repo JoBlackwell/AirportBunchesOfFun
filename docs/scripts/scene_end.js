@@ -278,7 +278,7 @@ game.endKeyboardBackground = {
 	// Get handle to image
     image: document.getElementById("endKeyboardBackground"),
 	// Declare object transform information
-    org_width: 1500 * game.scale,
+    org_width: 1323 * game.scale,
     org_height: 870 * game.scale,
     width: 0,
     height: 0,
@@ -286,8 +286,8 @@ game.endKeyboardBackground = {
     posY: 0,
     // Adjust the object's transform
     resize: function () {
-        this.width = this.org_width * (2 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (2 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         this.posX = ((engine.width - (game.endTitle.posX + game.endTitle.width)) + (this.width/2)) / 4;
         this.posY = engine.height - this.height;
@@ -297,7 +297,6 @@ game.endKeyboardBackground = {
 	// Draw the object
     draw: function () {
         this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
@@ -346,8 +345,8 @@ game.endKeyboardKeys = {
 		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_X.png" name="X">
 		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_Y.png" name="Y">
 		<img id="LetterButton_A" class="keypad_image" sec="images/end_scene/key_Z.png" name="Z">
-		</div>	
-	},
+		</div>
+    },
 	// Draw the object
     draw: function () {
         this.resize();
