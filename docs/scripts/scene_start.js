@@ -28,8 +28,8 @@ game.ABoFTitle = {
 	// Get handle to image
     image: document.getElementById("ABoFTitle"),
 	// Declare object transform information
-    org_width: 413 * game.scale * 2,
-    org_height: 262 * game.scale * 2,
+    org_width: 1097 * game.scale,
+    org_height: 541 * game.scale,
     width: 0,
     height: 0,
     posX: 753,
