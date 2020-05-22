@@ -95,7 +95,7 @@ game.TimeLeft = {
 
 game.endPlayerTimeBoard = {
 	// Get handle to div
-    div: document.getElementById("PlayerTimeBoard"),
+    div: document.getElementById("endPlayerTimeBoard"),
 	// Declare object transform information
     org_width: 200 * game.scale,
     org_height: 95 * game.scale,
