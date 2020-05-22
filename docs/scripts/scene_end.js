@@ -1,4 +1,4 @@
-  // JavaScript Document
+// JavaScript Document
 
 // DEBUG
 console.log("scene_end.js loaded successfully");
@@ -56,47 +56,12 @@ game.endTimeBoardBG = {
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
+
 //End_Scene Time Left
-game.TimeLeft = {
-    // Get handle to div element
-    div: document.getElementById("endTimeLeft"),
-    // Declare object transform information
-    org_width: 413 * game.scale,
-    org_height: 263 * game.scale,
-    width: 0,
-    height: 0,
-    posX: 0,
-    poxY: 0,
-    // Adjust the object's transform
-    resize: function () {
-
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-
-        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = game.endGamePoints.posY / 1;
-    },
-    // Draw the object
-    draw: function () {
-        this.adjustStyle();
-    },
-    // Apply changes via CSS
-    adjustStyle: function () {
-        this.resize();
-        this.div.style.position = "absolute";
-        this.div.style.display = "block";
-        this.div.style.left = this.posX.toString() + "px";
-        this.div.style.top = this.posY.toString() + "px";
-        this.div.style.width = this.width + "px";
-        this.div.style.height = this.height + "px";
-        this.div.style.zIndex = 1;
-    }
-};
-
 game.endPlayerTimeBoard = {
-	// Get handle to div
+    // Get handle to div
     div: document.getElementById("endPlayerTimeBoard"),
-	// Declare object transform information
+    // Declare object transform information
     org_width: 200 * game.scale,
     org_height: 95 * game.scale,
     width: 0,
@@ -105,8 +70,8 @@ game.endPlayerTimeBoard = {
     org_posY: 82,
     posX: 0,
     posY: 0,
-	// Declare member variables
-    org_font_size: 74,
+    // Declare member variables
+    org_font_size: 82,
     font_size: 0,
     timeStart: null,
     timeEnd: null,
@@ -114,24 +79,29 @@ game.endPlayerTimeBoard = {
     timerStarted: false,
     timerExpired: false,
     timerDisplay: '',
-	// Adjust the object's transform
+    // Initialize the object
+    init: function () {
+        // Add event listener to the button
+        this.div.addEventListener("click", game.endPlayerTimeBoard.clickMe);
+    },
+    // Adjust the object's transform
     resize: function () {
 
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         // Attach Left Side
-        this.posX = game.playTimer.posX + this.org_posX * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = game.playTimer.posY + this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-
+        this.posX = (game.endTimeBoardBG.posX + game.endTimeBoardBG.width/2) - this.width/2;
+        this.posY = game.endTimeBoardBG.posY + game.endTimeBoardBG.height - this.height - 16 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        
         // Adjust font size
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
-	// Draw the object
+    // Draw the object
     draw: function () {
         this.adjustStyle();
     },
-	// Apply changes via CSS
+    // Apply changes via CSS
     adjustStyle: function () {
         this.resize();
         this.div.style.position = "absolute";
@@ -189,7 +159,13 @@ game.endPlayerTimeBoard = {
         // Set the countdown in seconds
         this.timeSeconds = Math.round((this.timeEnd - Date.now()) / 1000);
     },
+    // Handle user interaction based on game state
+    clickMe: function () {
+        // Refresh the timeout timer
+        game.timeoutOverlay.refreshTimer();
+    }
 };
+game.endPlayerTimeBoard.init(); // Force initialize endPlayerTimeBoard's event listener
 
 //End_Scene Title Background
 game.endTitle = {
@@ -249,21 +225,58 @@ game.endPlayerScore = {
     // Get handle to div element
     div: document.getElementById("endPlayerScore"),
     // Declare object transform information
-    org_width: 413 * game.scale,
-    org_height: 263 * game.scale,
+    org_width: 200 * game.scale,
+    org_height: 95 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
     poxY: 0,
-	
+    // Declare member variables
+    org_font_size: 82,
+    font_size: 0,
+    // Initialize the object
+    init: function () {
+        // Add event listener to the button
+        this.div.addEventListener("click", game.endPlayerScore.clickMe);
+    },
+    textResize: function() {
+        // Declare references to screen objects
+        var mySpan = $("#endPlayerScoreSpan");
+        var myDiv = $("#endPlayerScore");
+        
+        // Initialize the span
+        mySpan.css("font-size", this.org_font_size);
+        mySpan.html(myDiv.html());
+        
+        // Reduce the font size until the span is the correct width
+        if (mySpan.width() > this.width) {
+                while (mySpan.width() > this.width) {
+                // Get the font size as an integer, base 10
+                this.font_size = parseInt(mySpan.css("font-size"), 10);
+                // Reduce the font size by 1
+                mySpan.css("font-size", this.font_size - 1);
+            }
+        } else if (this.font_size < this.org_font_size) {
+            // Reset the font size to normal
+            this.font_size = this.org_font_size;
+            // Reduce the font size by 1
+            mySpan.css("font-size", this.font_size);
+        }
+        
+        // Set the player score to the proper size
+        $("#endPlayerScore").css("font-size", this.font_size).html(mySpan.html());
+    },
     // Adjust the object's transform
     resize: function () {
 
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = game.endGamePoints.width * 0.8;
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
-        this.posX = 30 + 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = game.endGamePoints.posY +  game.endGamePoints.posY / 10;
+        this.posX = (game.endGamePoints.posX + game.endGamePoints.width/2) - this.width/2;
+        this.posY = game.endGamePoints.posY + game.endGamePoints.height * 0.32;
+        
+        // Adjust font size
+        this.textResize();
     },
     // Draw the object
     draw: function () {
@@ -279,8 +292,14 @@ game.endPlayerScore = {
         this.div.style.width = this.width + "px";
         this.div.style.height = this.height + "px";
         this.div.style.zIndex = 1;
+    },
+    // Handle user interaction based on game state
+    clickMe: function () {
+        // Refresh the timeout timer
+        game.timeoutOverlay.refreshTimer();
     }
 };
+game.endPlayerScore.init(); // Force initialize the object's event listener
 
 // Game Over Area
 //End_Scene Game Over
@@ -365,7 +384,7 @@ game.endPlayerInitials = {
 
         this.posX = game.endInitialsBG.posX + game.endInitialsBG.width - this.width;
         this.posY = game.endInitialsBG.posY + game.endInitialsBG.height * 0.025;
-        
+
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
     // Draw the object
@@ -452,13 +471,13 @@ game.endKeyboardKeys = {
     btnPerRow: 0,
     // Adjust the object's transform
     resize: function () {
-        this.width = game.endKeyboardBackground.width;
+        this.width = game.endKeyboardBackground.width * 0.95;
         this.height = (game.endSubmitButton.posY - (game.endInitialsBG.posY + game.endInitialsBG.height)) * 0.75;
 
-        this.posX = game.endKeyboardBackground.posX;
+        this.posX = game.endKeyboardBackground.posX + game.endKeyboardBackground.width * 0.025;
         this.posY = (game.endInitialsBG.posY + game.endInitialsBG.height) + (game.endKeyboardBackground.height * 0.1 * (1 - (this.height / game.endKeyboardBackground.height)));
-        
-        this.btnWidth = this.width / 14;
+
+        this.btnWidth = this.width / 14.1;
 
         for (var i = 0; i < this.keyArray.length; i++) {
             var domElement = document.getElementById(this.keyArray[i]);
@@ -480,9 +499,6 @@ game.endKeyboardKeys = {
         this.div.style.top = this.posY.toString() + "px";
         this.div.style.width = this.width + "px";
         this.div.style.height = this.height + "px";
-        let keyLocation = document.getElementById("endKeyboardKey_M").getBoundingClientRect();
-        let pad = ((this.posX + this.width - keyLocation.right) / 2) + "px";
-        this.div.style.paddingLeft = pad;
         this.div.style.zIndex = 1;
     },
     // Hide keypad and clear arrays
