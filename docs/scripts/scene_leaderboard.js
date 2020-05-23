@@ -102,7 +102,7 @@ game.leaderboardPlayerScore = {
 game.leaderboardSponsorLogo = {
 	// Get handle
     image: function () {
-        return document.getElementById(game.getSponsor());
+        return document.getElementById(game.sponsors.getSponsor());
     },
 	// Declare object information
     org_width: 200 * game.scale,
