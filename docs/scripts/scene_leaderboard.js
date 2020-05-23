@@ -26,6 +26,31 @@ game.leaderboardBackground = {
     }
 };
 
+game.leaderboardTitle = {
+	// Get handle to image
+    image: document.getElementById("titleWhite"),
+	// Declare object transform information
+    org_width: 488 * game.scale,
+    org_height: 118 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    posY: 0,
+    org_posY: 50,
+	// Adjust the object's transform
+    resize: function () {
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = 20;
+        this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
+    },
+	// Draw the object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
 game.leaderboardClipboard = {
         //Get handle
     image: document.getElementById("leaderboardClipboard"),
@@ -291,7 +316,7 @@ game.top10players.init();
 //   - Buttons
 game.leaderboardMenuButton = {
 	// Get handle to image
-    image: document.getElementById("MenuButton"),
+    image: document.getElementById("menuButton"),
 	// Declare object transform information
     org_width: 275 * game.scale,
     org_height: 138 * game.scale,
