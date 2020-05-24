@@ -201,7 +201,7 @@ game.drawOnce = function () {
             break;
         case 'leaderboard':
             // Draw images on the canvas
-            this.leaderboardBackground.draw
+            this.leaderboardBackground.draw();
             this.leaderboardTitle.draw();
             this.leaderboardSponsor.draw();
             this.leaderboardScore.draw();
