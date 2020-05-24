@@ -51,29 +51,6 @@ game.leaderboardTitle = {
     }
 };
 
-game.leaderboardClipboard = {
-        //Get handle
-    image: document.getElementById("leaderboardClipboard"),
-        //Declare object information
-    org_width: 845 * game.scale,
-    org_height: 1018 * game.scale,
-    width: 0,
-    height: 0,
-    posX: 0,
-    posY: 0,
-        //Adjust transformation
-    resize: function() {
-        this.width = this.org_width * .90 * (1- Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * .90 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width - this.width - (375 * (1 - Math.max(engine.widthProportion, engine.heightProportion)));
-        this.posY = 25;
-    },
-        //Draw object
-    draw: function() {
-        this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    }
-};
 
 game.leaderboardPlayerScore = {
         //Get handle
