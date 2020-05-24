@@ -8,8 +8,8 @@ game.leaderboardBackground = {
         //Get handle
     image: document.getElementById("leaderboardBackground"),
         //Declare object information
-    org_width: 1923 * game.scale,
-    org_height: 1093 * game.scale,
+    org_width: 1920 * game.scale,
+    org_height: 1080 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -299,7 +299,6 @@ game.leaderboardMenuButton = {
     org_height: 138 * game.scale,
     width: 0,
     height: 0,
-    org_posY: 50,
     posX: 0,
     posY: 0,
 	// Adjust the object's transform
