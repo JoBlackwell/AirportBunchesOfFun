@@ -203,8 +203,8 @@ game.drawOnce = function () {
             // Draw images on the canvas
             this.leaderboardBackground.draw();
             this.leaderboardTitle.draw();
+            this.leaderboardPlayerScore.draw();
             this.leaderboardSponsor.draw();
-            this.leaderboardScore.draw();
             this.leaderboardSponsorLogo.draw();
             this.top10players.adjustStyle();
             this.finalPlayerScore.draw();

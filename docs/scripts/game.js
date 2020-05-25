@@ -235,7 +235,7 @@ game.sponsors = {
     sponsor: '',
     sponsorId: '',
     update: function() {
-        game.sponsor = this.sponsorArray[Math.rand(0, this.sponsorArray.length-1)];
+        game.sponsor = this.sponsorArray[Math.floor(Math.random() * (this.sponsorArray.length-1))];
     },
     // Get the sponsor
     getSponsor: function() {

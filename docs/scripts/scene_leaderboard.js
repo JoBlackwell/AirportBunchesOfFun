@@ -30,8 +30,8 @@ game.leaderboardTitle = {
 	// Get handle to image
     image: document.getElementById("titleWhite"),
 	// Declare object transform information
-    org_width: 488 * game.scale,
-    org_height: 118 * game.scale,
+    org_width: 413 * game.scale,
+    org_height: 262 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
@@ -41,7 +41,7 @@ game.leaderboardTitle = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 20;
+        this.posX = 600;
         this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
     },
 	// Draw the object
@@ -66,10 +66,36 @@ game.leaderboardPlayerScore = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 10 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = 230 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = 30 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = 325 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
         //Draw object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
+game.leaderboardSponsor = {
+	// Get handle
+    image: document.getElementById("SponsorsBox"),
+	// Declare object information
+    org_width: 340 * game.scale,
+    org_height: 620 * game.scale,
+    width: 0,
+    height: 0,
+    org_posX: 0,
+    org_posY: 0,
+    posX: 0,
+    posY: 0,
+	// Adjust transformation
+    resize: function () {
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = 1850 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = 450 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+    },
+	// Draw object
     draw: function () {
         this.resize();
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
@@ -102,7 +128,7 @@ game.leaderboardSponsorLogo = {
 	// Draw object
     draw: function () {
         this.resize();
-        engine.context.drawImage(this.image(), this.posX, this.posY, this.width, this.height);
+        
     }
 };
 
@@ -194,12 +220,12 @@ game.top10players = {
     },
         //Adjust transformation
     resize: function () {
-        this.width = game.leaderboardClipboard.width * .80;
-        this.height = game.leaderboardClipboard.height - 280 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = game.width * .80;
+        this.height = game.height - 280 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         // Attach Left Side
-        this.posX = game.leaderboardClipboard.posX + (game.leaderboardClipboard.width - this.width) / 2;
-        this.posY = game.leaderboardClipboard.posY + 250 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = game.posX + (game.width - this.width) / 2;
+        this.posY = game.posY + 250 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
             
 
         // Update font size
@@ -301,6 +327,12 @@ game.leaderboardMenuButton = {
     height: 0,
     posX: 0,
     posY: 0,
+    org_posY: 50,
+    
+    init:function () {
+        //Add event
+        this.image.addEventListener("click", game.menuButton.clickMe);
+    },
 	// Adjust the object's transform
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
@@ -322,8 +354,34 @@ game.leaderboardMenuButton = {
         this.image.style.width = this.width + "px";
         this.image.style.height = this.height + "px";
         this.image.style.zIndex = 1;
+    },
+    // Handle user interaction based on game state
+    clickMe: function () {
+		// Determine the current game state
+        switch (game.currState) {
+            case 'start':
+				// Inform Google the user quit the game
+                game.google.quit();
+				// Redirect the user to the O'Hare landing page
+                window.location.replace("http://www.flywithbutchohare.com/");
+                break;
+            default:
+				// All but the Start Scene returns to the Start Scene
+				// Hide all elements
+                game.hideElements.hideAll();
+				// Reset the player object
+                game.player.reset();
+				// Refresh the timeout timer
+                game.timeoutOverlay.refreshTimer();
+				// Set the new game state to the Start Scene
+                game.currState = game.gameState[0];
+				// Redraw all objects
+                game.drawOnce();
+                break;
+        }
     }
 };
+game.menuButton.init();// Force initialize object on first script load
 
 game.leaderboardRetryButton = {
 	// Get handle to image
@@ -344,8 +402,8 @@ game.leaderboardRetryButton = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 100 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = engine.height - this.height - (50 * (1 - Math.max(engine.widthProportion, engine.heightProportion)));
+        this.posX = engine.width / 5.5 - this.width / 5.5;
+        this.posY = engine.height / 1.5 - this.height / 1.5;
     },
 	// Draw the object
     draw: function () {
