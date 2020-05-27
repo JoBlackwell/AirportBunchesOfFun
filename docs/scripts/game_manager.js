@@ -174,8 +174,16 @@ game.drawOnce = function () {
             break;
         case 'play':
             // Draw images on the canvas
+            game.playBackground.draw();
+            game.playTitle.draw();
+            game.playScoreBoard.draw();
+            game.playTimeBoard.draw();
+            game.playScore.draw()
+            game.playField.draw();
+            game.playSponsor.draw();
 			
             // Display buttons
+            game.playMenuButton.draw();
             
             break;
         case 'end':
