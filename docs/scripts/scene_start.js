@@ -28,8 +28,8 @@ game.ABoFTitle = {
 	// Get handle to image
     image: document.getElementById("ABoFTitle"),
 	// Declare object transform information
-    org_width: 413 * game.scale,
-    org_height: 262 * game.scale,
+    org_width: 1097 * game.scale,
+    org_height: 541 * game.scale,
     width: 0,
     height: 0,
     posX: 753,
@@ -137,8 +137,8 @@ game.startButton = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 1.98 - this.width / 2;
-        this.posY = engine.height / 3 - this.height / 2;
+        this.posX = engine.width / 3 - this.width / 2;
+        this.posY = engine.height - this.height - 40;
     },
 	// Draw the object
     draw: function () {
@@ -194,8 +194,8 @@ game.leaderboardButton = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 1.98 - this.width / 2;
-        this.posY = engine.height / 2 - this.height / 2;
+        this.posX = (engine.width / 2) - this.width / 2;
+        this.posY = engine.height - this.height - 40;
     },
 	// Draw the object
     draw: function () {
@@ -249,8 +249,8 @@ game.quitButton = {
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 1.98 - this.width / 2;
-        this.posY = engine.height / 1.5 - this.height / 2;
+        this.posX = (engine.width / 3 * 2) - this.width / 2;
+        this.posY = engine.height - this.height - 40;
     },
 	// Draw the object
     draw: function () {

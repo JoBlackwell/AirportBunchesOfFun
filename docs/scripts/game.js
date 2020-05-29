@@ -15,7 +15,7 @@
 // DESCRIPTION:     Controls the heart of Airport Bunches of Fun
 // LAST UPDATE:     05/07/2020 - Created main game.js file to work from
 //========================================================================
- 
+
 // Initialize game object
 window.game = Object.create(GameObject.prototype);
 
@@ -43,6 +43,15 @@ for (var i = 0; i < game.mouse.length; i++) {
 game.scale = 1.0;
 game.timeoutTime = 120;					// Timeout time before returning to landing page
 game.lastTimeSized = new Date();        // Used to track window resizing without window events
+game.timers = [];                       // Array for all timers
+
+/* << TIMER EXAMPLE USAGE >>
+var myTime = new Timer();
+console.log(`Time: ${myTime.startTime}\nTime Left: ${myTime.timeLeft}`);
+myTime.setup(2, false, "Test");
+console.log(`Time: ${myTime.startTime}\nTime Left: ${myTime.timeLeft}`);
+game.timers.push(myTime);
+<< TIMER EXAMPLE USAGE >> */
 
 game.lastSponsor = ""; // Previously used sponsor
 game.sponsor = ""; // Current sponsor

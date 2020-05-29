@@ -139,6 +139,16 @@ game.update = function (dt) {
             break;
     };
     
+    // Update all timers
+    for (var i = 0; i < game.timers.length; i++) {
+        game.timers[i].update(dt);
+        // DEBUG
+        /*if (game.timers[i].timerExpired) {
+            console.log(game.timers[i].toString());
+        }
+        console.log(game.timers[i].displayMinuteSeconds());*/
+    }
+    
     // Force a draw when the window resizes
     if (this.lastTimeSized < (engine.timeSizing)) {
         this.drawOnce();
@@ -193,11 +203,15 @@ game.drawOnce = function () {
             this.endGameOver.draw();
             this.endInitialsBG.draw();
             this.endPlayerInitials.draw();
-            this.endKeyboardKeys.draw();
-            
+			
             // Display buttons
             this.endSubmitButton.adjustStyle();
             this.endMenuButton.adjustStyle();
+            
+            // Keypad
+            this.endKeyboardKeys.draw();
+			//Time
+			this.endPlayerTimeBoard.draw();
             break;
         case 'leaderboard':
             // Draw images on the canvas
