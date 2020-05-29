@@ -102,6 +102,15 @@ body {
     font-family: BigShouldersDisplay-Semibold;
     color: #002839;
 }
+/* Leaderboard Scene score */
+.leader-score-box {
+    position: absolute;
+    margin: 0px;
+    text-align: center;
+    font-size: 130pt;
+    font-family: BigShouldersDisplay-Semibold;
+    color: #ffffff;
+}
 /* Text Effects */
 .glow {
     font-size: 80px;

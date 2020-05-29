@@ -5,21 +5,21 @@ console.log("scene_leaderboard.js loaded successfully");
 
 //   - Images
 game.leaderboardBackground = {
-        //Get handle
+    //Get handle
     image: document.getElementById("leaderboardBackground"),
-        //Declare object information
+    //Declare object information
     org_width: 1920 * game.scale,
     org_height: 1080 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
     posY: 0,
-        //Adjust transformation
+    //Adjust transformation
     resize: function () {
         this.width = engine.width;
         this.height = engine.height;
     },
-        //Draw object
+    //Draw object
     draw: function () {
         this.resize();
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
@@ -27,9 +27,9 @@ game.leaderboardBackground = {
 };
 
 game.leaderboardTitle = {
-	// Get handle to image
+    // Get handle to image
     image: document.getElementById("titleWhite"),
-	// Declare object transform information
+    // Declare object transform information
     org_width: 413 * game.scale,
     org_height: 262 * game.scale,
     width: 0,
@@ -37,14 +37,14 @@ game.leaderboardTitle = {
     posX: 0,
     posY: 0,
     org_posY: 50,
-	// Adjust the object's transform
+    // Adjust the object's transform
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = 600;
         this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
     },
-	// Draw the object
+    // Draw the object
     draw: function () {
         this.resize();
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
@@ -53,89 +53,33 @@ game.leaderboardTitle = {
 
 
 game.leaderboardPlayerScore = {
-        //Get handle
+    //Get handle
     image: document.getElementById("leaderboardScore"),
-        //Declare object information
-    org_width: 613 * game.scale,
-    org_height: 342 * game.scale,
+    //Declare object information
+    org_width: 575 * game.scale,
+    org_height: 365 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
     posY: 0,
-        //Adjust transformation
+    //Adjust transformation
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = 30 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posY = 325 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
-        //Draw object
+    //Draw object
     draw: function () {
         this.resize();
         engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    }
-};
-
-game.leaderboardSponsor = {
-	// Get handle
-    image: document.getElementById("SponsorsBox"),
-	// Declare object information
-    org_width: 340 * game.scale,
-    org_height: 620 * game.scale,
-    width: 0,
-    height: 0,
-    org_posX: 0,
-    org_posY: 0,
-    posX: 0,
-    posY: 0,
-	// Adjust transformation
-    resize: function () {
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 1850 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posY = 450 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-    },
-	// Draw object
-    draw: function () {
-        this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    }
-};
-
-game.leaderboardSponsorLogo = {
-	// Get handle
-    image: function () {
-        return document.getElementById(game.sponsors.getSponsor());
-    },
-	// Declare object information
-    org_width: 200 * game.scale,
-    org_height: 200 * game.scale,
-    width: 0,
-    height: 0,
-    org_posX: 1590,
-    org_posY: 785,
-    posX: 0,
-    posY: 0,
-	// Adjust transformation
-    resize: function () {
-        this.width = game.leaderboardSponsor.width * 0.95;
-        this.height = this.width;
-
-        // Attach Bottom Side
-        this.posX = game.leaderboardSponsor.posX + (game.leaderboardSponsor.width - this.width) / 2;
-        this.posY = game.leaderboardSponsor.posY + game.leaderboardSponsor.height / 2 - this.height / 3;
-    },
-	// Draw object
-    draw: function () {
-        this.resize();
-        
     }
 };
 
 game.finalPlayerScore = {
-        //Get handle
+    //Get handle
     div: document.getElementById("finalPlayerScore"),
-        //Declare object information
+    //Declare object information
     org_width: 150 * game.scale,
     org_height: 95 * game.scale,
     width: 0,
@@ -153,7 +97,7 @@ game.finalPlayerScore = {
         //Add event listener
         this.div.addEventListener("click", game.finalPlayerScore.clickMe);
     },
-        //Adjust tranformation
+    //Adjust tranformation
     resize: function () {
 
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
@@ -166,12 +110,12 @@ game.finalPlayerScore = {
         //adjust font
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
-        //draw object
+    //draw object
     draw: function () {
         this.updateScore();
         this.adjustStyle();
     },
-	//apply changes
+    //apply changes
     adjustStyle: function () {
         this.resize();
         this.div.style.position = "absolute";
@@ -188,19 +132,75 @@ game.finalPlayerScore = {
         this.score = Math.max(0, game.player.score);
         this.div.innerHTML = this.score;
     },
-        //Handle user interaction
-    clickMe: function() {
+    //Handle user interaction
+    clickMe: function () {
         //Refresh timer
         game.timeoutOverlay.refreshTimer();
     }
 };
 game.finalPlayerScore.init();
 
+game.leaderboardSponsor = {
+    // Get handle
+    image: document.getElementById("SponsorsBox"),
+    // Declare object information
+    org_width: 340 * game.scale,
+    org_height: 620 * game.scale,
+    width: 0,
+    height: 0,
+    org_posX: 0,
+    org_posY: 0,
+    posX: 0,
+    posY: 0,
+    // Adjust transformation
+    resize: function () {
+        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = engine.width - this.width;
+        this.posY = engine.height - this.height;
+    },
+    // Draw object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+    }
+};
+
+game.leaderboardSponsorLogo = {
+    // Get handle
+    image: function () {
+        return document.getElementById(game.sponsors.getSponsor());
+    },
+    // Declare object information
+    org_width: 200 * game.scale,
+    org_height: 200 * game.scale,
+    width: 0,
+    height: 0,
+    org_posX: 1590,
+    org_posY: 785,
+    posX: 0,
+    posY: 0,
+    // Adjust transformation
+    resize: function () {
+        this.width = game.leaderboardSponsor.width * 0.70;
+        this.height = this.width;
+
+        // Attach Bottom Side
+        this.posX = game.leaderboardSponsor.posX + 35 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.leaderboardSponsor.posY + game.leaderboardSponsor.height / 2 - this.height / 3;
+    },
+    // Draw object
+    draw: function () {
+        this.resize();
+        engine.context.drawImage(this.image(), this.posX, this.posY, this.width, this.height);
+    }
+};
+
 //Leaderboard Table
 game.top10players = {
-        //Get handle 
+    //Get handle 
     div: document.getElementById("top10table"),
-        //Declare object information
+    //Declare object information
     org_width: 0,
     org_height: 0,
     width: 0,
@@ -214,11 +214,11 @@ game.top10players = {
     //table commplete
     tableBuilt: false,
     //Initialize
-    init: function() {
+    init: function () {
         //Add event listener
         this.div.addEventListener("click", game.top10players.clickMe);
     },
-        //Adjust transformation
+    //Adjust transformation
     resize: function () {
         this.width = game.width * .80;
         this.height = game.height - 280 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
@@ -226,15 +226,15 @@ game.top10players = {
         // Attach Left Side
         this.posX = game.posX + (game.width - this.width) / 2;
         this.posY = game.posY + 250 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-            
+
 
         // Update font size
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        
+
         // Update CSS for all children
         $("#lbContainerDiv").width(this.width);
     },
-    
+
     // Apply changes via CSS
     adjustStyle: function () {
         if (!this.tableBuilt) {
@@ -250,7 +250,7 @@ game.top10players = {
         this.div.style.fontSize = this.font_size + "px";
         this.div.style.zIndex = 1;
     },
-    
+
     // Hide the table and clear
     hideTable: function () {
         this.divArray = [];
@@ -280,7 +280,7 @@ game.top10players = {
 
                 //open div
                 tableBuilder += divPrefix + place + '" class="table-container" style="width:' + (game.top10players.width) + 'px">';
-                
+
                 for (var i = 0; i < leaders.length; i++) {
                     place = i + 1;
 
@@ -302,25 +302,25 @@ game.top10players = {
 
                 game.top10players.divArray.push("lbContainerDiv");
                 game.top10players.div.innerHTML = tableBuilder;
-                
+
                 // Disable extra queries
                 game.top10players.tableBuilt = true;
             }
         }
     },
-	// Handle user interaction
+    // Handle user interaction
     clickMe: function () {
         // Refresh the timeout timer
-		game.timeoutOverlay.refreshTimer();
+        game.timeoutOverlay.refreshTimer();
     }
 };
 game.top10players.init();
 
 //   - Buttons
 game.leaderboardMenuButton = {
-	// Get handle to image
+    // Get handle to image
     image: document.getElementById("menuButton"),
-	// Declare object transform information
+    // Declare object transform information
     org_width: 275 * game.scale,
     org_height: 138 * game.scale,
     width: 0,
@@ -328,23 +328,23 @@ game.leaderboardMenuButton = {
     posX: 0,
     posY: 0,
     org_posY: 50,
-    
-    init:function () {
+    // Initialize the button's event handler
+    init: function () {
         //Add event
         this.image.addEventListener("click", game.menuButton.clickMe);
     },
-	// Adjust the object's transform
+    // Adjust the object's transform
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.posX = engine.width - this.width;
         this.posY = Math.max(50, Math.min(40, this.org_posY - engine.heightDifference));
     },
-	// Draw the object
+    // Draw the object
     draw: function () {
         this.adjustStyle();
     },
-	// Apply changes via CSS
+    // Apply changes via CSS
     adjustStyle: function () {
         this.resize();
         this.image.style.position = "absolute";
@@ -357,59 +357,61 @@ game.leaderboardMenuButton = {
     },
     // Handle user interaction based on game state
     clickMe: function () {
-		// Determine the current game state
+        // Determine the current game state
         switch (game.currState) {
             case 'start':
-				// Inform Google the user quit the game
+                // Inform Google the user quit the game
                 game.google.quit();
-				// Redirect the user to the O'Hare landing page
+                // Redirect the user to the O'Hare landing page
                 window.location.replace("http://www.flywithbutchohare.com/");
                 break;
             default:
-				// All but the Start Scene returns to the Start Scene
-				// Hide all elements
+                // All but the Start Scene returns to the Start Scene
+                // Hide all elements
                 game.hideElements.hideAll();
-				// Reset the player object
+                // Reset the player object
                 game.player.reset();
-				// Refresh the timeout timer
+                // Refresh the timeout timer
                 game.timeoutOverlay.refreshTimer();
-				// Set the new game state to the Start Scene
+                // Set the new game state to the Start Scene
                 game.currState = game.gameState[0];
-				// Redraw all objects
+                // Redraw all objects
                 game.drawOnce();
                 break;
         }
     }
 };
-game.menuButton.init();// Force initialize object on first script load
+game.menuButton.init(); // Force initialize object on first script load
 
 game.leaderboardRetryButton = {
-	// Get handle to image
+    // Get handle to image
     image: document.getElementById("leaderboardRetryButton"),
-	// Declare object transform information
-    org_width: 265 * game.scale,
-    org_height: 107 * game.scale,
+    // Declare object transform information
+    org_width: 237 * game.scale,
+    org_height: 114 * game.scale,
     width: 0,
     height: 0,
     posX: 0,
     posY: 0,
-	// Initialize the object
+    // Initialize the object
     init: function () {
         // Add event listener
         this.image.addEventListener("click", game.leaderboardRetryButton.retry);
     },
-	// Adjust the object's transform
+    // Adjust the object's transform
     resize: function () {
         this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width / 5.5 - this.width / 5.5;
-        this.posY = engine.height / 1.5 - this.height / 1.5;
+        
+        // Remove an additional 25 (proportionate) from the X-position to match the shadow
+        this.posX = game.leaderboardPlayerScore.posX + game.leaderboardPlayerScore.width - this.width - 25 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = game.leaderboardPlayerScore.posY + game.leaderboardPlayerScore.height + 25 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
-	// Draw the object
+    // Draw the object
     draw: function () {
         this.adjustStyle();
     },
-	// Apply changes via CSS
+    // Apply changes via CSS
     adjustStyle: function () {
         this.resize();
         this.image.style.position = "absolute";
@@ -433,11 +435,11 @@ game.leaderboardRetryButton = {
         // Reset plane animation
         game.leaderboardAnimation.resetElements();
         // Refresh the timeout timer
-		game.timeoutOverlay.refreshTimer();
+        game.timeoutOverlay.refreshTimer();
         // Hide all elements
-		game.hideElements.hideAll();
+        game.hideElements.hideAll();
         // Redraw all elements
-		game.drawOnce();
+        game.drawOnce();
     }
 };
 game.leaderboardRetryButton.init();
