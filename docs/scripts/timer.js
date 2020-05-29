@@ -55,6 +55,16 @@ class Timer {
         }
     }
     
+    // Add time to the current time left (seconds)
+    addTime(amount) {
+        this.timeLeft += amount;
+    }
+    
+    // Subtract time from the current time left (seconds)
+    subtractTime(amount) {
+        this.timeLeft -= amount;
+    }
+    
     // Pause / Stop the timer
     pauseTimer() {
         this.paused = true;
