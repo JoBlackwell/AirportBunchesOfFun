@@ -213,7 +213,6 @@ game.top10players = {
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
         this.table_font_size = this.org_table_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
-
     // Apply changes via CSS
     adjustStyle: function () {
         if (!this.tableBuilt) {
@@ -240,10 +239,10 @@ game.top10players = {
         this.div.style.width = this.width + "px";
         this.div.style.height = this.height + "px";
     },
-
     // Hide the table and clear
     hideTable: function () {
         this.divArray = [];
+        this.divBoard.innerHTML = '';
         this.tableBuilt = false;
     },
     // Build the table
@@ -310,72 +309,6 @@ game.top10players = {
 game.top10players.init();
 
 //   - Buttons
-game.leaderboardMenuButton = {
-    // Get handle to image
-    image: document.getElementById("menuButton"),
-    // Declare object transform information
-    org_width: 275 * game.scale,
-    org_height: 138 * game.scale,
-    width: 0,
-    height: 0,
-    posX: 0,
-    posY: 0,
-    org_posY: 50,
-    // Initialize the button's event handler
-    init: function () {
-        //Add event
-        this.image.addEventListener("click", game.menuButton.clickMe);
-    },
-    // Adjust the object's transform
-    resize: function () {
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = engine.width - this.width;
-        this.posY = Math.max(50, Math.min(40, this.org_posY - engine.heightDifference));
-    },
-    // Draw the object
-    draw: function () {
-        this.adjustStyle();
-    },
-    // Apply changes via CSS
-    adjustStyle: function () {
-        this.resize();
-        this.image.style.position = "absolute";
-        this.image.style.display = "block";
-        this.image.style.left = this.posX.toString() + "px";
-        this.image.style.top = this.posY.toString() + "px";
-        this.image.style.width = this.width + "px";
-        this.image.style.height = this.height + "px";
-        this.image.style.zIndex = 1;
-    },
-    // Handle user interaction based on game state
-    clickMe: function () {
-        // Determine the current game state
-        switch (game.currState) {
-            case 'start':
-                // Inform Google the user quit the game
-                game.google.quit();
-                // Redirect the user to the O'Hare landing page
-                window.location.replace("http://www.flywithbutchohare.com/");
-                break;
-            default:
-                // All but the Start Scene returns to the Start Scene
-                // Hide all elements
-                game.hideElements.hideAll();
-                // Reset the player object
-                game.player.reset();
-                // Refresh the timeout timer
-                game.timeoutOverlay.refreshTimer();
-                // Set the new game state to the Start Scene
-                game.currState = game.gameState[0];
-                // Redraw all objects
-                game.drawOnce();
-                break;
-        }
-    }
-};
-game.menuButton.init(); // Force initialize object on first script load
-
 game.leaderboardRetryButton = {
     // Get handle to image
     image: document.getElementById("leaderboardRetryButton"),
@@ -425,8 +358,6 @@ game.leaderboardRetryButton = {
         game.player.reset();
         // Reset leaderboard table
         game.top10players.hideTable();
-        // Reset plane animation
-        game.leaderboardAnimation.resetElements();
         // Refresh the timeout timer
         game.timeoutOverlay.refreshTimer();
         // Hide all elements

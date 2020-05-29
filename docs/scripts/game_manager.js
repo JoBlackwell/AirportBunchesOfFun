@@ -190,7 +190,7 @@ game.drawOnce = function () {
             // Draw images on the canvas
 			
             // Display buttons
-            
+            this.menuButton.adjustStyle();
             break;
         case 'end':
             // Draw images on the canvas
@@ -206,7 +206,7 @@ game.drawOnce = function () {
 			
             // Display buttons
             this.endSubmitButton.adjustStyle();
-            this.endMenuButton.adjustStyle();
+            this.menuButton.adjustStyle();
             
             // Keypad
             this.endKeyboardKeys.draw();
@@ -222,7 +222,7 @@ game.drawOnce = function () {
             this.finalPlayerScore.draw();
             this.top10players.adjustStyle();
             // Display buttons
-            this.leaderboardMenuButton.adjustStyle();
+            this.menuButton.adjustStyle();
             this.leaderboardRetryButton.adjustStyle();
             break;
         default:
