@@ -216,12 +216,11 @@ game.drawOnce = function () {
         case 'leaderboard':
             // Draw images on the canvas
             this.leaderboardBackground.draw();
-            this.leaderboardTitle.draw();
             this.leaderboardPlayerScore.draw();
             this.leaderboardSponsor.draw();
             this.leaderboardSponsorLogo.draw();
-            this.top10players.adjustStyle();
             this.finalPlayerScore.draw();
+            this.top10players.adjustStyle();
             // Display buttons
             this.leaderboardMenuButton.adjustStyle();
             this.leaderboardRetryButton.adjustStyle();

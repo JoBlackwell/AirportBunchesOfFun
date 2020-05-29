@@ -4,7 +4,13 @@
 		<img id="leaderboardScore" src="images/leaderboard_scene/scoreBoard.png" alt="Leaderboard Scene Score" style="display:none;">
         <img id="SponsorsBox" src="images/sponsorsBox.png" alt="Leaderboard sponsor" style="display:none;">
         <!-- Table -->
-		<div id="top10table" style="display:none;position:absolute;z-index:4;">Rank | User | Score</div>
+		<div id="top10table" style="display:none;position:absolute;" name="top10s">
+            <div class="leader-title" name="top10s" style="background-image: url('images/title_white.png');background-position: center;background-repeat: no-repeat;background-size: contain;"></div>
+            <div class="leader-container" name="top10s">
+                <div id="top10header" class="table-header" name="top10s">TOP PLAYERS</div>
+                <div id="top10board" class="table-block" name="top10s"></div>
+            </div>
+        </div>
 		<!-- Score -->
 		<div id="finalPlayerScore" class= "leader-score-box" style="display:none;position:absolute;z-index:4;">500</div>
 		<!-- Buttons -->

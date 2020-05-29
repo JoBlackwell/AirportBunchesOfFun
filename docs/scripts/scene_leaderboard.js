@@ -26,32 +26,6 @@ game.leaderboardBackground = {
     }
 };
 
-game.leaderboardTitle = {
-    // Get handle to image
-    image: document.getElementById("titleWhite"),
-    // Declare object transform information
-    org_width: 413 * game.scale,
-    org_height: 262 * game.scale,
-    width: 0,
-    height: 0,
-    posX: 0,
-    posY: 0,
-    org_posY: 50,
-    // Adjust the object's transform
-    resize: function () {
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-        this.posX = 600;
-        this.posY = Math.max(40, Math.min(50, this.org_posY * (1 - Math.max(engine.widthProportion, engine.heightProportion))));
-    },
-    // Draw the object
-    draw: function () {
-        this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
-    }
-};
-
-
 game.leaderboardPlayerScore = {
     //Get handle
     image: document.getElementById("leaderboardScore"),
@@ -198,8 +172,11 @@ game.leaderboardSponsorLogo = {
 
 //Leaderboard Table
 game.top10players = {
-    //Get handle 
+    //Get handles
     div: document.getElementById("top10table"),
+    divHeader: document.getElementById("top10header"),
+    divBoard: document.getElementById("top10board"),
+    boardElements: null,
     //Declare object information
     org_width: 0,
     org_height: 0,
@@ -207,8 +184,10 @@ game.top10players = {
     height: 0,
     posX: 0,
     posY: 0,
-    org_font_size: 36,
+    org_font_size: 54,
     font_size: 0,
+    org_table_font_size: 36,
+    table_font_size: 0,
     //Array to hold items
     divArray: [],
     //table commplete
@@ -220,19 +199,19 @@ game.top10players = {
     },
     //Adjust transformation
     resize: function () {
-        this.width = game.width * .80;
-        this.height = game.height - 280 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = (game.leaderboardSponsor.posX - (game.leaderboardPlayerScore.posX + game.leaderboardPlayerScore.width)) - 100 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.height = engine.height;
 
         // Attach Left Side
-        this.posX = game.posX + (game.width - this.width) / 2;
-        this.posY = game.posY + 250 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posX = (game.leaderboardPlayerScore.posX + game.leaderboardPlayerScore.width) + 50 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.posY = 0;
 
-
+        // Adjust the height of the table's container
+        this.divBoard.style.height = engine.height - (this.divHeader.offsetTop + this.divHeader.offsetHeight) - 50 * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        
         // Update font size
         this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
-
-        // Update CSS for all children
-        $("#lbContainerDiv").width(this.width);
+        this.table_font_size = this.org_table_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
     },
 
     // Apply changes via CSS
@@ -241,14 +220,25 @@ game.top10players = {
             this.buildTable();
         }
         this.resize();
+        
+        this.boardElements = document.getElementsByName("top10s");
+        
+        for (var i = 0; i < this.boardElements.length; i++) {
+            if (this.boardElements[i].tagName.toLowerCase() == "td") {
+                this.boardElements[i].style.display = "inline-block";
+                this.boardElements[i].style.fontSize = this.table_font_size + "px";
+            } else {
+                this.boardElements[i].style.display = "block";
+                this.boardElements[i].style.fontSize = this.font_size + "px";
+            }
+        }
+        
         this.div.style.position = "absolute";
         this.div.style.display = "block";
         this.div.style.left = this.posX.toString() + "px";
         this.div.style.top = this.posY.toString() + "px";
         this.div.style.width = this.width + "px";
         this.div.style.height = this.height + "px";
-        this.div.style.fontSize = this.font_size + "px";
-        this.div.style.zIndex = 1;
     },
 
     // Hide the table and clear
@@ -279,7 +269,7 @@ game.top10players = {
                 var leaders = JSON.parse(this.responseText);
 
                 //open div
-                tableBuilder += divPrefix + place + '" class="table-container" style="width:' + (game.top10players.width) + 'px">';
+                tableBuilder += divPrefix + place + '" class="table-container" style="height:100%;" name="top10s">' + tablePrefix;
 
                 for (var i = 0; i < leaders.length; i++) {
                     place = i + 1;
@@ -288,9 +278,9 @@ game.top10players = {
                     scoreHolder = leaders[i].score.toString();
 
                     if (game.player.initials.toString() == placeHolder && game.player.score.toString() == scoreHolder) {
-                        tableBuilder += tablePrefix + rowPrefix + dataPrefix + " style='background-color: #f41c63;'>" + place + "</td>" + dataPrefix + " style='background-color: #f41c63;'>" + leaders[i].user + "</td>" + dataPrefix + " style='background-color: #f41c63;'>" + scoreHolder + "</td></tr>";
+                        tableBuilder += rowPrefix + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + place + "</td>" + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + leaders[i].user + "</td>" + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + scoreHolder + "</td></tr>";
                     } else {
-                        tableBuilder += tablePrefix + rowPrefix + dataPrefix + ">" + place + "</td>" + dataPrefix + ">" + leaders[i].user + "</td>" + dataPrefix + ">" + scoreHolder + "</td></tr>";
+                        tableBuilder += rowPrefix + dataPrefix + " name='top10s'>" + place + "</td>" + dataPrefix + " name='top10s'>" + leaders[i].user + "</td>" + dataPrefix + " name='top10s'>" + scoreHolder + "</td></tr>";
                     }
 
                 }
@@ -301,10 +291,13 @@ game.top10players = {
                 tableBuilder += "</div>";
 
                 game.top10players.divArray.push("lbContainerDiv");
-                game.top10players.div.innerHTML = tableBuilder;
+                game.top10players.divBoard.innerHTML = tableBuilder;
 
                 // Disable extra queries
                 game.top10players.tableBuilt = true;
+                
+                // Force refresh the table's styles
+                game.top10players.adjustStyle();
             }
         }
     },
