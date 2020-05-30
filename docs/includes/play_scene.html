@@ -38,9 +38,10 @@
 		<!-- Buttons -->
 
 		<!-- Timer -->
-		<img id="timeBoard" src="images/play_scene/timeBoard.png" alt="Time Board" style="display:none;">
+        <div id="playTimeBoard" class="timer-box" style="display:none;position:absolute;z-index:4;">00:00</div>
+		<img id="playTimeBoardBG" src="images/play_scene/timeBoard.png" alt="Time Board" style="display:none;">
 		
 		<!-- Score -->
-		<img id="scoreBoard" src="images/play_scene/scoreBoard.png" alt="Score Board" style="display:none;">
-		<div id="playerScore" class="score-box" style="display:none;position:absolute;z-index:4;">100</div>
-		
+		<div id="playerScore" class="score-box" style="display:none;position:absolute;z-index:4;">000</div>
+        <span id="playScoreSpan" style="display:none;"></span>
+        <img id="scoreBoard" src="images/play_scene/scoreBoard.png" alt="Score Board" style="display:none;">

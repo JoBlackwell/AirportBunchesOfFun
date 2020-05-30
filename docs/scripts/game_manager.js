@@ -191,14 +191,23 @@ game.drawOnce = function () {
             break;
         case 'play':
             // Draw images on the canvas
-            game.playBackground.draw();
-            game.playTitle.draw();
-            game.playScoreBoard.draw();
-            game.playTimeBoard.draw();
-            game.playScore.draw()
-            game.playFieldBackground.draw();
-            game.playSponsor.draw();
-            game.gamePieces.draw();
+            this.playBackground.draw();
+            // Left Panel Backgrounds
+            this.playTimeBoardBG.draw();
+            this.playTitle.draw();
+            this.playScoreBoard.draw();
+            // Left Panel Text
+            this.playTimeBoard.draw();
+            this.playScore.draw();
+            
+            // Sponsors
+            this.playSponsor.draw();
+            this.playSponsorLogo.draw();
+            
+            // Playing Field
+            this.playFieldBackground.draw();
+            
+            // game.gamePieces.draw();
 
             // Display buttons
             this.menuButton.adjustStyle();
@@ -220,7 +229,7 @@ game.drawOnce = function () {
             this.menuButton.adjustStyle();
             // Keypad
             this.endKeyboardKeys.draw();
-            //Time
+            // Time
             this.endPlayerTimeBoard.draw();
             break;
         case 'leaderboard':
