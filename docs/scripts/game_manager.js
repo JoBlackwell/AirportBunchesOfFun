@@ -33,6 +33,8 @@ game.hideElements = {
     hideAll: function () {
         this.images();
         this.canvas();
+        // Reset leaderboard table
+        game.top10players.hideTable();
     }
 };
 
@@ -98,9 +100,9 @@ game.gameController = {
         // Toggle next state
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
-                //Reset player object
+                // Reset player object
                 game.player.reset();
-                //Reset leaderboard table
+                // Reset leaderboard table
                 game.top10players.hideTable();
 				// Update game state to Start Scene
                 game.currState = game.gameState[0];
