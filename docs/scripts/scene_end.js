@@ -280,6 +280,7 @@ game.endPlayerScore = {
     },
     // Draw the object
     draw: function () {
+        this.updateScore();
         this.adjustStyle();
     },
     // Apply changes via CSS
@@ -293,7 +294,11 @@ game.endPlayerScore = {
         this.div.style.height = this.height + "px";
         this.div.style.zIndex = 1;
     },
-    // Handle user interaction based on game state
+    // Update the score with the player's score
+    updateScore: function () {
+        this.div.innerHTML = Math.max(0, game.player.score);
+    },
+    // Handle user interaction
     clickMe: function () {
         // Refresh the timeout timer
         game.timeoutOverlay.refreshTimer();

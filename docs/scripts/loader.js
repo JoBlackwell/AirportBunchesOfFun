@@ -56,6 +56,7 @@ $(document).ready(function() {
                                     console.log("<Loader> Executing scripts...");
                                     // Remove the <br> tag placeholder
                                     $("br").remove();
+                                    game.google.load();
                                 });
                             });
                         });

@@ -65,16 +65,42 @@ game.finalPlayerScore = {
     //Declare variables
     org_font_size: 74,
     font_size: 0,
-    score: 0,
     //Initialize the object
     init: function () {
         //Add event listener
         this.div.addEventListener("click", game.finalPlayerScore.clickMe);
     },
+    textResize: function () {
+        // Declare references to screen objects
+        var mySpan = $("#leaderScoreSpan");
+        var myDiv = $("#finalPlayerScore");
+
+        // Initialize the span
+        mySpan.css("font-size", this.org_font_size);
+        mySpan.html(myDiv.html());
+
+        // Reduce the font size until the span is the correct width
+        if (mySpan.width() > this.width) {
+            while (mySpan.width() > this.width) {
+                // Get the font size as an integer, base 10
+                this.font_size = parseInt(mySpan.css("font-size"), 10);
+                // Reduce the font size by 1
+                mySpan.css("font-size", this.font_size - 1);
+            }
+        } else if (this.font_size < this.org_font_size) {
+            // Reset the font size to normal
+            this.font_size = this.org_font_size;
+            // Reduce the font size by 1
+            mySpan.css("font-size", this.font_size);
+        }
+
+        // Set the player score to the proper size
+        $("#finalPlayerScore").css("font-size", this.font_size).html(mySpan.html());
+    },
     //Adjust tranformation
     resize: function () {
 
-        this.width = this.org_width * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.width = game.leaderboardPlayerScore.width * 0.8;
         this.height = this.org_height * (1 - Math.max(engine.widthProportion, engine.heightProportion));
 
         //attach left side
@@ -82,7 +108,7 @@ game.finalPlayerScore = {
         this.posY = game.leaderboardPlayerScore.posY + game.leaderboardPlayerScore.height / 2 - this.height / 2;
 
         //adjust font
-        this.font_size = this.org_font_size * (1 - Math.max(engine.widthProportion, engine.heightProportion));
+        this.textResize();
     },
     //draw object
     draw: function () {
@@ -103,8 +129,7 @@ game.finalPlayerScore = {
     },
     //Update/display score
     updateScore: function () {
-        this.score = Math.max(0, game.player.score);
-        this.div.innerHTML = this.score;
+        this.div.innerHTML = Math.max(0, game.player.score);
     },
     //Handle user interaction
     clickMe: function () {
@@ -243,6 +268,7 @@ game.top10players = {
     hideTable: function () {
         this.divArray = [];
         this.divBoard.innerHTML = '';
+        this.div.style.display = "none";
         this.tableBuilt = false;
     },
     // Build the table

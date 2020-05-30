@@ -14,12 +14,12 @@ game.currState = game.gameState[0];
 game.hideElements = {
     // Hide images
     images: function () {
-		// Hide all <img> elements
+        // Hide all <img> elements
         var y = document.getElementsByTagName("img");
         for (var i = 0; i < y.length; i++) {
             y[i].style.display = "none";
         }
-		// Hide all <div> elements
+        // Hide all <div> elements
         var z = document.getElementsByTagName("div");
         for (var i = 0; i < z.length; i++) {
             z[i].style.display = "none";
@@ -46,13 +46,13 @@ game.gameController = {
         // Toggle next state
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
-				// Set the new game state to Play Scene
+                // Set the new game state to Play Scene
                 game.currState = game.gameState[1];
-				// Hide all elements
+                // Hide all elements
                 game.hideElements.hideAll();
                 // Refresh timeout
                 game.timeoutOverlay.refreshTimer();
-				// Redraw all elements
+                // Redraw all elements
                 game.drawOnce();
             }
         }
@@ -60,17 +60,17 @@ game.gameController = {
     gsPlay: function (dt) {
         // Play Scene
 
-		// DEBUG
+        // DEBUG
         // Toggle next state
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
-				// Update game state to End Scene
+                // Update game state to End Scene
                 game.currState = game.gameState[2];
-				// Hide all elements
+                // Hide all elements
                 game.hideElements.hideAll();
                 // Refresh timeout
                 game.timeoutOverlay.refreshTimer();
-				// Redraw all elements
+                // Redraw all elements
                 game.drawOnce();
             }
         }
@@ -78,17 +78,17 @@ game.gameController = {
     gsEnd: function (dt) {
         // End Scene
 
-		// DEBUG
+        // DEBUG
         // Toggle next state
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
-				// Update game state to Leaderboard Scene
+                // Update game state to Leaderboard Scene
                 game.currState = game.gameState[3];
-				// Hide all elements
+                // Hide all elements
                 game.hideElements.hideAll();
                 // Refresh timeout
                 game.timeoutOverlay.refreshTimer();
-				// Redraw all elements
+                // Redraw all elements
                 game.drawOnce();
             }
         }
@@ -96,21 +96,22 @@ game.gameController = {
     gsLeaderboard: function (dt) {
         // Leaderboard Scene
 
-		// DEBUG
+        // DEBUG
         // Toggle next state
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
+                // Update game state to Start Scene
                 // Reset player object
                 game.player.reset();
                 // Reset leaderboard table
                 game.top10players.hideTable();
 				// Update game state to Start Scene
                 game.currState = game.gameState[0];
-				// Hide all elements
+                // Hide all elements
                 game.hideElements.hideAll();
                 // Refresh timeout
                 game.timeoutOverlay.refreshTimer();
-				// Redraw all elements
+                // Redraw all elements
                 game.drawOnce();
             }
         }
@@ -140,7 +141,7 @@ game.update = function (dt) {
             this.gameController.gsStart(dt);
             break;
     };
-    
+
     // Update all timers
     for (var i = 0; i < game.timers.length; i++) {
         game.timers[i].update(dt);
@@ -150,7 +151,7 @@ game.update = function (dt) {
         }
         console.log(game.timers[i].displayMinuteSeconds());*/
     }
-    
+
     // Force a draw when the window resizes
     if (this.lastTimeSized < (engine.timeSizing)) {
         this.drawOnce();
@@ -163,7 +164,7 @@ game.update = function (dt) {
     // Handle mouse clicks
     for (var i = 0; i < game.mouse.length; i++) {
         if (engine.input.pressed(game.mouse[i])) {
-			// Refresh the overlay's timer
+            // Refresh the overlay's timer
             game.timeoutOverlay.refreshTimer();
         }
     }
@@ -181,7 +182,7 @@ game.drawOnce = function () {
             // Draw images on the canvas
             this.startBackground.draw();
             this.ABoFTitle.draw();
-			
+
             // Display buttons
             this.startButton.adjustStyle();
             this.leaderboardButton.adjustStyle();
@@ -190,13 +191,30 @@ game.drawOnce = function () {
             break;
         case 'play':
             // Draw images on the canvas
-			
+            this.playBackground.draw();
+            // Left Panel Backgrounds
+            this.playTimeBoardBG.draw();
+            this.playTitle.draw();
+            this.playScoreBoard.draw();
+            // Left Panel Text
+            this.playTimeBoard.draw();
+            this.playScore.draw();
+            
+            // Sponsors
+            this.playSponsor.draw();
+            this.playSponsorLogo.draw();
+            
+            // Playing Field
+            this.playFieldBackground.draw();
+            
+            // game.gamePieces.draw();
+
             // Display buttons
             this.menuButton.adjustStyle();
             break;
         case 'end':
             // Draw images on the canvas
-			this.endBackground.draw();
+            this.endBackground.draw();
             this.endTimeBoardBG.draw();
             this.endTitle.draw();
             this.endGamePoints.draw();
@@ -205,15 +223,14 @@ game.drawOnce = function () {
             this.endGameOver.draw();
             this.endInitialsBG.draw();
             this.endPlayerInitials.draw();
-			
+
             // Display buttons
             this.endSubmitButton.adjustStyle();
             this.menuButton.adjustStyle();
-            
             // Keypad
             this.endKeyboardKeys.draw();
-			//Time
-			this.endPlayerTimeBoard.draw();
+            // Time
+            this.endPlayerTimeBoard.draw();
             break;
         case 'leaderboard':
             // Draw images on the canvas
@@ -261,13 +278,13 @@ game.draw = function () {
 
 // Window loses focus
 window.onblur = function () {
-	// Pause the game
+    // Pause the game
     return game.stop();
 };
 
 // Window gains focus
 window.onfocus = function () {
-	// Force redraw of all elements
+    // Force redraw of all elements
     game.run();
     // Unpause the game
     return game.drawOnce();
