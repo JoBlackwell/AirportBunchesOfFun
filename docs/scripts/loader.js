@@ -9,6 +9,14 @@ $.cachedScript = function (url, options) {
     return $.ajax(options);
 }
 
+async function loadTimerScript() {
+    // Load scripts synchronously
+    const scrTimer = await $.cachedScript("scripts/timer.js").done((script, textStatus) => {
+        console.log(`<Loader>[Timer:Cache] ${textStatus}`);
+    });
+};
+loadTimerScript();
+
 $(document).ready(function() {
     
     // Load Reusables

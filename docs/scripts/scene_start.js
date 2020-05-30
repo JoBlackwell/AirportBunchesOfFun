@@ -104,6 +104,8 @@ game.menuButton = {
 				// All but the Start Scene returns to the Start Scene
 				// Hide all elements
                 game.hideElements.hideAll();
+                // Reset leaderboard table
+                game.top10players.hideTable();
 				// Reset the player object
                 game.player.reset();
 				// Refresh the timeout timer

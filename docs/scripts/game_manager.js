@@ -33,6 +33,8 @@ game.hideElements = {
     hideAll: function () {
         this.images();
         this.canvas();
+        // Reset leaderboard table
+        game.top10players.hideTable();
     }
 };
 
@@ -99,6 +101,11 @@ game.gameController = {
         for (var i = 0; i < game.controls.length; i++) {
             if (engine.input.pressed(game.controls[i])) {
                 // Update game state to Start Scene
+                // Reset player object
+                game.player.reset();
+                // Reset leaderboard table
+                game.top10players.hideTable();
+				// Update game state to Start Scene
                 game.currState = game.gameState[0];
                 // Hide all elements
                 game.hideElements.hideAll();
@@ -134,6 +141,16 @@ game.update = function (dt) {
             this.gameController.gsStart(dt);
             break;
     };
+
+    // Update all timers
+    for (var i = 0; i < game.timers.length; i++) {
+        game.timers[i].update(dt);
+        // DEBUG
+        /*if (game.timers[i].timerExpired) {
+            console.log(game.timers[i].toString());
+        }
+        console.log(game.timers[i].displayMinuteSeconds());*/
+    }
 
     // Force a draw when the window resizes
     if (this.lastTimeSized < (engine.timeSizing)) {
@@ -184,8 +201,7 @@ game.drawOnce = function () {
             game.gamePieces.draw();
 
             // Display buttons
-            game.playMenuButton.draw();
-
+            this.menuButton.adjustStyle();
             break;
         case 'end':
             // Draw images on the canvas
@@ -201,15 +217,23 @@ game.drawOnce = function () {
 
             // Display buttons
             this.endSubmitButton.adjustStyle();
-            this.endMenuButton.adjustStyle();
-
+            this.menuButton.adjustStyle();
             // Keypad
             this.endKeyboardKeys.draw();
             //Time
             this.endPlayerTimeBoard.draw();
             break;
         case 'leaderboard':
-
+            // Draw images on the canvas
+            this.leaderboardBackground.draw();
+            this.leaderboardPlayerScore.draw();
+            this.leaderboardSponsor.draw();
+            this.leaderboardSponsorLogo.draw();
+            this.finalPlayerScore.draw();
+            this.top10players.adjustStyle();
+            // Display buttons
+            this.menuButton.adjustStyle();
+            this.leaderboardRetryButton.adjustStyle();
             break;
         default:
             break;
