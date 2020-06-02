@@ -289,7 +289,7 @@ game.top10players = {
 
         // Perform actions when AJAX completes (State: 4)
         ajax.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && this.status == 200 && game.currState == 'leaderboard') {
                 // Parse and store the JSON message from PHP
                 var leaders = JSON.parse(this.responseText);
 

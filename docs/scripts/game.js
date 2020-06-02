@@ -313,7 +313,7 @@ game.sponsors = {
                 break;
         }
         // Update the game's sponsor
-        game.sponsor = this.sponsorId;
+        game.sponsorId = this.sponsorId;
         
         // Return the sponsor ID
         return this.sponsorId;

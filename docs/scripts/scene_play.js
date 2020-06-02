@@ -67,6 +67,7 @@ game.playTimeBoard = {
     // Declare member variables
     org_font_size: 82,
     font_size: 0,
+    timer: new Timer(),
     timeStart: null,
     timeEnd: null,
     timeSeconds: null,
