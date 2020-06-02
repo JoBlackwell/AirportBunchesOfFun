@@ -45,6 +45,16 @@ game.timeoutTime = 120;					// Timeout time before returning to landing page
 game.lastTimeSized = new Date();        // Used to track window resizing without window events
 game.timers = [];                       // Array for all timers
 
+game.vec = new Vector2D(2, 2);
+console.log(game.vec.toString());
+game.vec2= new Vector2D(3, -1);
+console.log(game.vec.toString());
+//game.vec.zero();
+//console.log(game.vec.toString());
+game.vec.divide(game.vec2);
+console.log(game.vec.toString());
+console.log(`Perp: ${game.vec.perp()}`);
+
 /* << TIMER EXAMPLE USAGE >>
 var myTime = new Timer();
 console.log(`Time: ${myTime.startTime}\nTime Left: ${myTime.timeLeft}`);

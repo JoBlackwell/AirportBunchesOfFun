@@ -11,6 +11,15 @@ $.cachedScript = function (url, options) {
 
 async function loadTimerScript() {
     // Load scripts synchronously
+    const scrUtilities = await $.cachedScript("scripts/utils.js").done((script, textStatus) => {
+        console.log(`<Game>[Utilities:Cache] ${textStatus}`);
+    });
+    const scrPoints = await $.cachedScript("scripts/point.js").done((script, textStatus) => {
+        console.log(`<Game>[Points:Cache] ${textStatus}`);
+    });
+    const scrVector2D = await $.cachedScript("scripts/vector2d.js").done((script, textStatus) => {
+        console.log(`<Game>[Vector2D:Cache] ${textStatus}`);
+    });
     const scrTimer = await $.cachedScript("scripts/timer.js").done((script, textStatus) => {
         console.log(`<Loader>[Timer:Cache] ${textStatus}`);
     });
