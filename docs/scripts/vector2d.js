@@ -284,39 +284,26 @@ function wrapAround(pos, maxX, maxY) {
 // and bot_rgt
 function notInsideRegion(p, top_left, bot_rgt) {
     return (p.x < top_left.x) || (p.x > bot_rgt.x) ||
-        (p.y < top_left.y) || (p.y > bot_rgt.y);
+           (p.y < top_left.y) || (p.y > bot_rgt.y);
 }
 
-/*
 // Returns true if the point p is inside the bounds of top_left and bot_rgt
-inline bool InsideRegion(Vector2D p,
-	Vector2D top_left,
-	Vector2D bot_rgt)
-{
-	return !((p.x < top_left.x) || (p.x > bot_rgt.x) ||
-		(p.y < top_left.y) || (p.y > bot_rgt.y));
+function insideRegion(p, top_left, bot_rgt) {
+    return !((p.x < top_left.x) || (p.x > bot_rgt.x) ||
+             (p.y < top_left.y) || (p.y > bot_rgt.y));
 }
 
-inline bool InsideRegion(Vector2D p, int left, int top, int right, int bottom)
-{
-	return !((p.x < left) || (p.x > right) || (p.y < top) || (p.y > bottom));
+// Returns true if the vector is inside the bounds of a RECT's bounds
+function vecInsideRegion(p, left, top, right, bottom) {
+    return !((p.x < left) || (p.x > right) || (p.y < top) || (p.y > bottom));
 }
 
 /*----------------------------isSecondInFOVOfFirst--------------------\
 | - Returns true if the target position is in the FOV of the entity
 |   positioned at posFirst facing in facingFirst
 \--------------------------------------------------------------------*/
-
-/*
-inline bool isSecondInFOVOfFirst(Vector2D posFirst,
-	Vector2D facingFirst,
-	Vector2D posSecond,
-	double    fov)
-{
-	Vector2D toTarget = Vec2DNormalize(posSecond - posFirst);
-
-	return facingFirst.Dot(toTarget) >= cos(fov / 2.0);
+function isSecondInFOVOfFirst(posFirst, facingFirst, posSecond, fov) {
+    var toTarget = new Vector2D();
+    toTarget = vec2DNormalize(posSecond - posFirst);
+    return facingFirst.Dot(toTarget) >= Math.cos(fov / 2.0);
 }
-
-#endif
-*/
