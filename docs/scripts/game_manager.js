@@ -206,6 +206,7 @@ game.drawOnce = function () {
             
             // Playing Field
             this.playFieldBackground.draw();
+            this.playFieldGrid.draw();
             
             // game.gamePieces.draw();
 

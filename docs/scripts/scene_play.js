@@ -331,6 +331,62 @@ game.playSponsorLogo = {
     }
 };
 
+game.playFieldGrid = {
+    //get handle to div
+    div: document.getElementById("playGrid"),
+    //define transform information
+    org_width: 1026 * game.scale,
+    org_height: 940 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    posY: 0,
+    gridArray: [],
+    //adjust transformation
+    resize: function () {
+        //set dive size equal to play field background
+        this.width = game.playFieldBackground.width;
+        this.height = game.playFieldBackground.height;
+
+        //position div on top of play field background
+        this.posX = game.playFieldBackground.posX;
+        this.posY = game.playFieldBackground.posY;
+
+    },
+    draw: function () {
+        this.adjustStyle();
+        this.buildGrid();
+    },
+    adjustStyle: function () {
+        this.resize();
+        this.div.style.position = "absolute";
+        this.div.style.display = "block";
+        this.div.style.left = this.posX.toString() + "px";
+        this.div.style.top = this.posY.toString() + "px";
+        this.div.style.width = this.width + "px";
+        this.div.style.height = this.height + "px";
+        this.div.style.zIndex = 1;
+    },
+    buildGrid: function () {
+        var containerNum = "";
+        var divPrefix = '<div id="gemContainerDiv'
+        var gridBuilder = '';
+
+        for (var i = 0; i < 81; i++) {
+            containerNum = i + 1;
+            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="width:' + (game.playFieldGrid.width / 9) + 'px;height: ' + (game.playFieldGrid.height / 9) + 'px;margin:auto;float:left;">gem</div>';
+            
+            if (containerNum % 9 == 0) {
+                gridBuilder += '<br>';
+            };
+        };
+        
+        game.playFieldGrid.gridArray.push("gemContainerDiv");
+        game.playFieldGrid.div.innerHTML = gridBuilder;
+    }
+}
+
+
 /*
 game.playField = {
     positions: [],
@@ -338,7 +394,7 @@ game.playField = {
     init: function () {
         for (var i = 0; i < 81; i++) {
             var shape = new Shape();
-            this.positions.push({ parseInt(shape.id) + ":" + shape._type});
+            this.positions.push({shape});
     }
 },
     evaluate: function() {
