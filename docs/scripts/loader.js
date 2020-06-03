@@ -20,6 +20,9 @@ async function loadTimerScript() {
     const scrVector2D = await $.cachedScript("scripts/vector2d.js").done((script, textStatus) => {
         console.log(`<Game>[Vector2D:Cache] ${textStatus}`);
     });
+    const scrC2DMatrix = await $.cachedScript("scripts/c2dmatrix.js").done((script, textStatus) => {
+        console.log(`<Game>[C2DMatrix:Cache] ${textStatus}`);
+    });
     const scrTimer = await $.cachedScript("scripts/timer.js").done((script, textStatus) => {
         console.log(`<Loader>[Timer:Cache] ${textStatus}`);
     });

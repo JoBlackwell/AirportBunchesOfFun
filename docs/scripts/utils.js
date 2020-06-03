@@ -58,6 +58,17 @@ function randGaussian(mean = 0.0, standard_deviation = 1.0) {
 | - Useful functions for multiple different uses
 \--------------------------------------------------------------------*/
 
+// Send a message to the console that a problem exists with the supplied condition
+function assert(condition, message) {
+    if (!condition) {
+        message = message || "Assert failed...";
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message;
+    }
+}
+
 // Return the sigmoid of the input
 function sigmoid(input, response = 1.0) {
     return (1.0 / (1.0 + Math.exp(-input / response)));
@@ -97,6 +108,8 @@ function minimum(v1, v2) {
 
 // Clamps the first argument between the second two
 function clamp(arg, minVal, maxVal) {
+    assert((minVal < maxVal), `<Utils:Clamp:Error> maxVal (${maxVal}) < minVal (${minVal}).`);
+    
     if (arg < minVal) arg = minVal;
     
     if (arg > maxVal) arg = maxVal;

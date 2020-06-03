@@ -55,6 +55,11 @@ game.vec.divide(game.vec2);
 console.log(game.vec.toString());
 console.log(`Perp: ${game.vec.perp()}`);
 
+// Matrix test
+game.mat = new c2DMatrix();
+game.mat._12(2.0);
+console.log(`Matrix:\n${game.mat.toStringF()}`);
+
 /* << TIMER EXAMPLE USAGE >>
 var myTime = new Timer();
 console.log(`Time: ${myTime.startTime}\nTime Left: ${myTime.timeLeft}`);
