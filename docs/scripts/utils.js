@@ -58,6 +58,13 @@ function randGaussian(mean = 0.0, standard_deviation = 1.0) {
 | - Useful functions for multiple different uses
 \--------------------------------------------------------------------*/
 
+// Push a value to the "back" of an array
+Array.prototype.push_back = function(val) {
+    this.reverse();
+    this.push(val);
+    this.reverse();
+}
+
 // Send a message to the console that a problem exists with the supplied condition
 function assert(condition, message) {
     if (!condition) {
