@@ -1,7 +1,13 @@
 // JavaScript Document
 
+/*---------------------Enumerators------------------------------------\
+| - Define necessary enumerators
+\--------------------------------------------------------------------*/
 const rotationEnum = Object.freeze({"clockwise":1, "anticlockwise":-1});
 
+/*---------------------Vector 2D--------------------------------------\
+| - Various Vector Controls
+\--------------------------------------------------------------------*/
 class Vector2D {
     // Overloaded constructor
     constructor(x, y) {
