@@ -374,20 +374,19 @@ game.playFieldGrid = {
 
         for (var i = 0; i < 81; i++) {
             containerNum = i + 1;
-            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="width:' + (game.playFieldGrid.width / 9) + 'px;height: ' + (game.playFieldGrid.height / 9) + 'px;margin:auto;float:left;">gem</div>';
+            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="display:inline-block; width:' + Math.floor(game.playFieldGrid.width / 9) + 'px;height: ' + Math.ceil(game.playFieldGrid.height / 9) + 'px;margin:0px;">gem</div>';
             
-            if (containerNum % 9 == 0) {
-                gridBuilder += '<br>';
-            };
+            
+            game.playFieldGrid.gridArray.push("gemContainerDiv");    
         };
         
-        game.playFieldGrid.gridArray.push("gemContainerDiv");
+
         game.playFieldGrid.div.innerHTML = gridBuilder;
     }
 }
 
 
-/*
+
 game.playField = {
     positions: [],
     shape: null,
@@ -430,7 +429,7 @@ class Shape {
 
     }
     createRandomShape() {
-        var x = Math.floor(Math.random * 7);
+        var x = Math.floor(Math.random() * 7);
         switch (x) {
             case 0:
             case 1:
@@ -845,106 +844,28 @@ class heart extends Shape {
 }
 
 game.triangle = {
-    image: $("#myTriangle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myTriangle")
 }
 game.star = {
-    image: $("#myStar"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myStar")
 }
 game.heart = {
-    image: $("#myHeart"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myHeart")
 }
 game.square = {
-    image: $("#mySquare"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#mySquare")
 }
 game.cicle = {
-    image: $("#myCircle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myCircle")
 }
 game.pentagon = {
-    image: $("#myPentagon"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myPentagon")
 }
 game.rectangle = {
-    image: $("#myRectangle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myRectangle")
 }
 
 var shapeArray = [game.triangle, game.star, game.heart, game.square, game.circle, game.pentagon, game.rectangle];
 function getRandomShape() {
     var myShape = shapeArray[Math.floor(Math.random() * shapeArray.length)];
 }
-*/
