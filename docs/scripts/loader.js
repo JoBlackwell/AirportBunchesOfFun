@@ -26,11 +26,20 @@ async function loadTimerScript() {
     const scrTransformations = await $.cachedScript("scripts/transformations.js").done((script, textStatus) => {
         console.log(`<Loader>[Transformations:Cache] ${textStatus}`);
     });
+	const scrGeometry = await $.cachedScript("scripts/geometry.js").done((script, textStatus) => {
+        console.log(`<Loader>[Geometry:Cache] ${textStatus}`);
+    });
+	const scrEntityFunctionTemplates = await $.cachedScript("scripts/entityFunctionTemplates.js").done((script, textStatus) => {
+        console.log(`<Loader>[EntityFunctionTemplates:Cache] ${textStatus}`);
+    });
     const scrBaseGameEntity = await $.cachedScript("scripts/baseGameEntity.js").done((script, textStatus) => {
         console.log(`<Loader>[BaseGameEntity:Cache] ${textStatus}`);
     });
     const scrMovingEntity = await $.cachedScript("scripts/movingEntity.js").done((script, textStatus) => {
         console.log(`<Loader>[MovingEntity:Cache] ${textStatus}`);
+    });
+	const scrSteeringBehaviors = await $.cachedScript("scripts/steeringBehaviors.js").done((script, textStatus) => {
+        console.log(`<Loader>[SteeringBehaviors:Cache] ${textStatus}`);
     });
     const scrTimer = await $.cachedScript("scripts/timer.js").done((script, textStatus) => {
         console.log(`<Loader>[Timer:Cache] ${textStatus}`);
