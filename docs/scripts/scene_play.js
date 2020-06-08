@@ -351,7 +351,6 @@ game.playFieldGrid = {
         //position div on top of play field background
         this.posX = game.playFieldBackground.posX;
         this.posY = game.playFieldBackground.posY;
-
     },
     draw: function () {
         this.adjustStyle();
@@ -374,7 +373,7 @@ game.playFieldGrid = {
 
         for (var i = 0; i < 81; i++) {
             containerNum = i + 1;
-            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="display:inline-block; width:' + Math.floor(game.playFieldGrid.width / 9) + 'px;height: ' + Math.ceil(game.playFieldGrid.height / 9) + 'px;margin:0px;">gem</div>';
+            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="display:inline-block; width:' + Math.floor(game.playFieldGrid.width / 9 - 2) + 'px;height: ' + Math.floor(game.playFieldGrid.height / 9 - 2) + 'px;margin:0px;">gem</div>';
             
             
             game.playFieldGrid.gridArray.push("gemContainerDiv");    

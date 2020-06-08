@@ -205,7 +205,6 @@ game.drawOnce = function () {
             this.playSponsorLogo.draw();
             
             // Playing Field
-            this.playFieldBackground.draw();
             this.playFieldGrid.draw();
             
             // game.gamePieces.draw();
