@@ -4,22 +4,17 @@
 | - Useful template functions
 \--------------------------------------------------------------------*/
 
-/*---------------------Overlapped-------------------------------------\
+/*---------------------overlapped-------------------------------------\
 | - Tests to see if an entity is overlapping any number of other
 |   entities stored in a container
+| - arg types: template | template | double
 \--------------------------------------------------------------------*/
-template <class T, class conT>
-bool Overlapped(const T* ob, const conT& conOb, double MinDistBetweenObstacles = 40.0)
-{
-	typename conT::const_iterator it;
+function overlapped(ob, conOb, MinDistBetweenObstacles = 40.0) {
+	var it;
 
-	for (it = conOb.begin(); it != conOb.end(); ++it)
+	for (it = conOb[0]; it != conOb[conOb.size()-1]; ++it)
 	{
-		if (TwoCirclesOverlapped(ob->Pos(),
-			ob->BRadius() + MinDistBetweenObstacles,
-			(*it)->Pos(),
-			(*it)->BRadius()))
-		{
+		if (twoCirclesOverlapped(ob.pos(), (ob.bRadius() + MinDistBetweenObstacles), it.pos(), it.bRadius())) {
 			return true;
 		}
 	}
@@ -27,70 +22,72 @@ bool Overlapped(const T* ob, const conT& conOb, double MinDistBetweenObstacles =
 	return false;
 }
 
-/*---------------------TagNeighbors-----------------------------------\
+/*---------------------tagNeighbors-----------------------------------\
 | - Tags any entities contained in a std container that are within the
 |   radius of the single entity parameter
+| - arg types: entity | template | double
 \--------------------------------------------------------------------*/
-template <class T, class conT>
-void TagNeighbors(T* entity, conT& others, const double radius)
-{
-	typename conT::iterator it;
+function tagNeighbors(entity, others, radius) {
+	var it;
 
 	// Iterate through all entities checking for range
-	for (it = others.begin(); it != others.end(); ++it)
-	{
+	for (it = others[0]; it != others[others.size()-1]; ++it) {
 		// First clear any current tag
-		(*it)->UnTag();
+		it.unTag();
 
 		// Work in distance squared to avoid sqrts
-		Vector2D to = (*it)->Pos() - entity->Pos();
+		// Vector2D to = (*it)->Pos() - entity->Pos();
+		var to = vectorSubtract(it.pos(), entity.pos());
 
 		// The bounding radius of the other is taken into account by adding it 
 		// to the range
-		double range = radius + (*it)->BRadius();
+		// double range = radius + (*it)->BRadius();
+		var range = radius + it.bRadius();
 
 		// If entity within range, tag for further consideration
-		if (((*it) != entity) && (to.LengthSq() < range * range))
+		/*if (((*it) != entity) && (to.LengthSq() < range * range))
 		{
 			(*it)->Tag();
+		}*/
+		if ((it != entity) && (to.LengthSq() < range * range)) {
+			it.Tag();
 		}
 
 	} // Next entity
 }
 
-/*---------------------EnforceNonPenetrationConstraint----------------\
+/*---------------------enforceNonPenetrationConstraint----------------\
 | - Given a pointer to an entity and a std container of pointers to
 |   nearby entities, check to see if there is any overlap between
 |   entities.  If an overlap exists, move the entities away from each
 |   other.
+| - arg types: entity | template
 \--------------------------------------------------------------------*/
-template <class T, class conT>
-void EnforceNonPenetrationContraint(T entity, const conT& others)
-{
-	typename conT::const_iterator it;
+function enforceNonPenetrationContraint(entity, others) {
+	var it;
 
 	// Iterate through all entities checking for any overlap of bounding radii
-	for (it = others.begin(); it != others.end(); ++it)
-	{
+	for (it = others[0]; it != others[others.size()-1]; ++it) {
 		// Make sure we don't check against this entity
-		if (*it == entity) continue;
+		if (it == entity) continue;
 
 		// Calculate the distance between the positions of the entities
-		Vector2D ToEntity = entity->Pos() - (*it)->Pos();
+		// Vector2D ToEntity = entity->Pos() - (*it)->Pos();
+		var toEntity = vecSubtract(entity.pos(), it.pos());
 
-		double DistFromEachOther = ToEntity.Length();
+		var DistFromEachOther = toEntity.length();
 
 		// If this distance is smaller than the sum of their radii then this
 		// entity must be moved away in the direction parallel to the
-		// ToEntity vector   
-		double AmountOfOverLap = (*it)->BRadius() + entity->BRadius() -
-			DistFromEachOther;
+		// tToEntity vector
+		// double AmountOfOverLap = (*it)->BRadius() + entity->BRadius() -	DistFromEachOther;
+		var AmountOfOverLap = it.bRadius() + entity.bRadius() - DistFromEachOther;
 
 		if (AmountOfOverLap >= 0)
 		{
 			// Move the entity a distance away equivalent to the amount of overlap.
-			entity->SetPos(entity->Pos() + (ToEntity / DistFromEachOther) *
-				AmountOfOverLap);
+			// entity->SetPos(entity->Pos() + (ToEntity / DistFromEachOther) *	AmountOfOverLap);
+			entity.setPos(vecAdd(entity.pos(), vecMultiply(vecDivide(ToEntity, DistFromEachOther), AmountOfOverLap)));
 		}
 	} // Next entity
 }
