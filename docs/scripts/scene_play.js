@@ -272,7 +272,7 @@ game.playFieldBackground = {
     // Draw the object
     draw: function () {
         this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+        // engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
 
@@ -332,14 +332,68 @@ game.playSponsorLogo = {
     }
 };
 
-/*
+game.playFieldGrid = {
+    //get handle to div
+    div: document.getElementById("playGrid"),
+    //define transform information
+    org_width: 1026 * game.scale,
+    org_height: 940 * game.scale,
+    width: 0,
+    height: 0,
+    posX: 0,
+    posY: 0,
+    gridArray: [],
+    //adjust transformation
+    resize: function () {
+        //set dive size equal to play field background
+        this.width = game.playFieldBackground.width;
+        this.height = game.playFieldBackground.height;
+
+        //position div on top of play field background
+        this.posX = game.playFieldBackground.posX;
+        this.posY = game.playFieldBackground.posY;
+    },
+    draw: function () {
+        this.adjustStyle();
+        this.buildGrid();
+    },
+    adjustStyle: function () {
+        this.resize();
+        this.div.style.position = "absolute";
+        this.div.style.display = "block";
+        this.div.style.left = this.posX.toString() + "px";
+        this.div.style.top = this.posY.toString() + "px";
+        this.div.style.width = this.width + "px";
+        this.div.style.height = this.height + "px";
+        this.div.style.zIndex = 1;
+    },
+    buildGrid: function () {
+        var containerNum = "";
+        var divPrefix = '<div id="gemContainerDiv'
+        var gridBuilder = '';
+
+        for (var i = 0; i < 81; i++) {
+            containerNum = i + 1;
+            gridBuilder += divPrefix + containerNum + '" class="gem-container" style="display:inline-block; width:' + Math.floor(game.playFieldGrid.width / 9 - 2) + 'px;height: ' + Math.floor(game.playFieldGrid.height / 9 - 2) + 'px;margin:0px;">gem</div>';
+            
+            
+            game.playFieldGrid.gridArray.push("gemContainerDiv");    
+        };
+        
+
+        game.playFieldGrid.div.innerHTML = gridBuilder;
+    }
+}
+
+
+
 game.playField = {
     positions: [],
     shape: null,
     init: function () {
         for (var i = 0; i < 81; i++) {
             var shape = new Shape();
-            this.positions.push({ parseInt(shape.id) + ":" + shape._type});
+            this.positions.push({shape});
     }
 },
     evaluate: function() {
@@ -360,536 +414,30 @@ game.playField = {
 };
 
 game.shapeId = 0; // Must remain unique!
-class Shape {
-    constructor() {
-        var self = this;
-        this.id = game.shapeId++;
-        this.x = null;
-        this.y = null;
-        this.top = null;
-        this.bottom = null;
-        this.right = null;
-        this.left = null;
-    }
-    switch(myShape, target) {
-
-    }
-    createRandomShape() {
-        var x = Math.floor(Math.random * 7);
-        switch (x) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            default:
-
-        }
-    }
-}
-class triangle extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "triangle";
-        this.shape = document.getElementById("triangleShape");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class circle extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "circle";
-        this.shape = document.getElementById("gemCircle");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class rectangle extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "rectangle";
-        this.shape = document.getElementById("gemRactangle");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class star extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "star";
-        this.shape = document.getElementById("gemStar");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class pentagon extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "pentagon";
-        this.shape = document.getElementById("gemPentagon");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class square extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "square";
-        this.shape = document.getElementById("gemSquare");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
-class heart extends Shape {
-    constructor() {
-        super();
-        var self = this;
-        this.type = "heart";
-        this.shape = document.getElementById("gemHeart");
-        this.addEventListener("drag", self.dragMe);
-        this.points = 120;
-    }
-    dragMe() {
-        var direction = self.getMouseDragDirection();
-        switch (direction) {
-            case 'up':
-                if (super.top) {
-                    try {
-                        super.switch(this, super.top);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'down':
-                if (super.bottom) {
-                    try {
-                        super.switch(this, super.bottom);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'left':
-                if (super.left) {
-                    try {
-                        super.switch(this, super.left);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-            case 'right':
-                if (super.right) {
-                    try {
-                        super.switch(this, super.right);
-                    }
-                    catch (InvalidShapeException) {
-                        // Do nothing
-                    }
-                }
-        }
-    }
-    getMouseDragDirection() {
-
-    }
-    get _type() {
-        return this.type;
-    }
-}
 
 game.triangle = {
-    image: $("#myTriangle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myTriangle")
 }
 game.star = {
-    image: $("#myStar"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myStar")
 }
 game.heart = {
-    image: $("#myHeart"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myHeart")
 }
 game.square = {
-    image: $("#mySquare"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#mySquare")
 }
 game.cicle = {
-    image: $("#myCircle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myCircle")
 }
 game.pentagon = {
-    image: $("#myPentagon"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myPentagon")
 }
 game.rectangle = {
-    image: $("#myRectangle"),
-    org_width: 99,
-    org_height: 99,
-    width: 0,
-    height: 0,
-    resize: function () {
-        this.width = playFieldBackground.width / 9;
-        this.height = playFieldBackground.height / 9;
-    },
-    draw: function () {
-        this.resize();
-    }
+    image: $("#myRectangle")
 }
 
 var shapeArray = [game.triangle, game.star, game.heart, game.square, game.circle, game.pentagon, game.rectangle];
 function getRandomShape() {
     var myShape = shapeArray[Math.floor(Math.random() * shapeArray.length)];
 }
-*/
