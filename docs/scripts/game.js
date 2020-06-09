@@ -339,7 +339,7 @@ game.sponsors = {
 };
 
 // Tag nearby shapes
-game.tagShapesWithinViewRange(shape, range) {
+game.tagShapesWithinViewRange = function(shape, range) {
 	tagNeighbors(shape, game.shapes, range);
 }
 
