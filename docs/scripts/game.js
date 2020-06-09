@@ -45,6 +45,24 @@ game.timeoutTime = 120;					// Timeout time before returning to landing page
 game.lastTimeSized = new Date();        // Used to track window resizing without window events
 game.timers = [];                       // Array for all timers
 
+// Shapes
+game.shapes = [];
+
+game.vec = new Vector2D(2, 2);
+console.log(game.vec.toString());
+game.vec2= new Vector2D(3, -1);
+console.log(game.vec.toString());
+//game.vec.zero();
+//console.log(game.vec.toString());
+game.vec.divide(game.vec2);
+console.log(game.vec.toString());
+console.log(`Perp: ${game.vec.perp()}`);
+
+// Matrix test
+game.mat = new c2DMatrix();
+game.mat._12(2.0);
+console.log(`Matrix:\n${game.mat.toStringF()}`);
+
 /* << TIMER EXAMPLE USAGE >>
 var myTime = new Timer();
 console.log(`Time: ${myTime.startTime}\nTime Left: ${myTime.timeLeft}`);
@@ -319,6 +337,11 @@ game.sponsors = {
         return this.sponsorId;
     }
 };
+
+// Tag nearby shapes
+game.tagShapesWithinViewRange = function(shape, range) {
+	tagNeighbors(shape, game.shapes, range);
+}
 
 async function loadScripts() {
     // Load scripts synchronously
