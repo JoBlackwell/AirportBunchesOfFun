@@ -14,6 +14,30 @@ async function loadTimerScript() {
     const scrTimer = await $.cachedScript("scripts/timer.js").done((script, textStatus) => {
         console.log(`<Loader>[Timer:Cache] ${textStatus}`);
     });
+    const scrShape = await $.cachedScript("scripts/shape.js").done((script, textStatus) => {
+        console.log(`<Loader>[Shape:Cache] ${textStatus}`);
+    });
+    const scrCircle = await $.cachedScript("scripts/circle.js").done((script, textStatus) => {
+        console.log(`<Loader>[Circle:Cache] ${textStatus}`);
+    });
+    const scrHeart = await $.cachedScript("scripts/heart.js").done((script, textStatus) => {
+        console.log(`<Loader>[Heart:Cache] ${textStatus}`);
+    });
+    const scrPentagon = await $.cachedScript("scripts/pentagon.js").done((script, textStatus) => {
+        console.log(`<Loader>[Pentagon:Cache] ${textStatus}`);
+    });
+    const scrRect = await $.cachedScript("scripts/rectangle.js").done((script, textStatus) => {
+        console.log(`<Loader>[Rectangle:Cache] ${textStatus}`);
+    });
+    const scrSquare = await $.cachedScript("scripts/square.js").done((script, textStatus) => {
+        console.log(`<Loader>[Square:Cache] ${textStatus}`);
+    });
+    const scrStar = await $.cachedScript("scripts/star.js").done((script, textStatus) => {
+        console.log(`<Loader>[Star:Cache] ${textStatus}`);
+    });
+    const scrTriangle = await $.cachedScript("scripts/triangle.js").done((script, textStatus) => {
+        console.log(`<Loader>[Triangle:Cache] ${textStatus}`);
+    });
 };
 loadTimerScript();
 
