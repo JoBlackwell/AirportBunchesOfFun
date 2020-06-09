@@ -271,7 +271,7 @@ game.playFieldBackground = {
     // Draw the object
     draw: function () {
         this.resize();
-        engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
+        // engine.context.drawImage(this.image, this.posX, this.posY, this.width, this.height);
     }
 };
 
