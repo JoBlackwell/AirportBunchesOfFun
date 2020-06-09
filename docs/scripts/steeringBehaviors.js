@@ -213,7 +213,7 @@ class steeringBehavior {
 			if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 		}*/
 
-		if (this.flagsOn(behaviorTypeEnum.separation)) {
+		if (this.flagOn(behaviorTypeEnum.separation)) {
 			force = this.separation(game.shapes) * this.weightSeparation;
 			if (!this.accumulateForce(this.steeringForce, force)) return this.steeringForce
 		}
@@ -224,7 +224,7 @@ class steeringBehavior {
 
 			if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 		}*/
-		if (this.flagsOn(behaviorTypeEnum.seek)) {
+		if (this.flagOn(behaviorTypeEnum.seek)) {
 			force = this.seek(this.target) * this.weightSeek;
 			if (!this.accumulateForce(this.steeringForce, force)) return this.steeringForce;
 		}
@@ -235,7 +235,7 @@ class steeringBehavior {
 
 			if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 		}*/
-		if (this.flagsOn(behaviorTypeEnum.arrive)) {
+		if (this.flagOn(behaviorTypeEnum.arrive)) {
 			force = this.arrive(this.target, this.deceleration) * this.weightArrive;
 			if (!this.accumulateForce(this.steeringForce, force)) return this.steeringForce;
 		}
@@ -246,7 +246,7 @@ class steeringBehavior {
 
 			if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 		}*/
-		if (this.flagsOn(behaviorTypeEnum.wander)) {
+		if (this.flagOn(behaviorTypeEnum.wander)) {
 			force = this.wander() * this.wanderWeight;
 			if (!this.accumulateForce(this.steeringForce, force)) return this.steeringForce;
 		}
@@ -360,53 +360,45 @@ class steeringBehavior {
 		/*double DistToThisIP = 0.0;
 		double DistToClosestIP = MaxDouble;*/
 
-		//this will hold an index into the vector of walls
-		int ClosestWall = -1;
+		// This will hold an index into the vector of walls
+		// int ClosestWall = -1;
+		var ClosestWall = -1;
 
-		Vector2D SteeringForce,
-			point,         //used for storing temporary info
-			ClosestPoint;  //holds the closest intersection point
+		/*Vector2D SteeringForce,
+			point,         // Used for storing temporary info
+			ClosestPoint;  // Holds the closest intersection point*/
+		var SteeringForce = new Vector2D();	// Holds a local copy of the steering force
+		var point = new Vector2D();			// Used for storing temporary info
+		var ClosestPoint = new Vector2D();	// Holds the closest intersection point
 
-	//examine each feeler in turn
-		for (unsigned int flr = 0; flr < m_Feelers.size(); ++flr)
-		{
-			//run through each wall checking for any intersection points
-			for (unsigned int w = 0; w < walls.size(); ++w)
+		// Examine each feeler in turn
+		for (var flr = 0; flr < this.feelers.size(); ++flr) {
+			// Run through each wall checking for any intersection points
+			for (var w = 0; w < walls.size(); ++w)
 			{
-				if (LineIntersection2D(m_pLH_Bot->Pos(),
-					m_Feelers[flr],
-					walls[w]->From(),
-					walls[w]->To(),
-					DistToThisIP,
-					point))
-				{
-					//is this the closest found so far? If so keep a record
-					if (DistToThisIP < DistToClosestIP)
-					{
+				// TODO: Will need to add walls class if using this function
+				if (lineIntersection2DDistPoint(this.shape.pos(), this.feelers[flr], walls[w].From(), walls[w].To(), DistToThisIP, point)) {
+					// Is this the closest found so far? If so keep a record
+					if (DistToThisIP < DistToClosestIP) {
 						DistToClosestIP = DistToThisIP;
-
 						ClosestWall = w;
-
 						ClosestPoint = point;
 					}
 				}
-			}//next wall
+			} // Next wall
 
+			// If an intersection point has been detected, calculate a force  
+			// that will direct the agent away
+			if (ClosestWall >= 0) {
+				// Calculate by what distance the projected position of the entity will overshoot the wall
+				// Vector2D OverShoot = m_Feelers[flr] - ClosestPoint;
+				var OverShoot = vecSubtract(this.feelers[flr], ClosestPoint);
 
-			//if an intersection point has been detected, calculate a force  
-			//that will direct the agent away
-			if (ClosestWall >= 0)
-			{
-				//calculate by what distance the projected position of the agent
-				//will overshoot the wall
-				Vector2D OverShoot = m_Feelers[flr] - ClosestPoint;
-
-				//create a force in the direction of the wall normal, with a 
-				//magnitude of the overshoot
-				SteeringForce = walls[ClosestWall]->Normal() * OverShoot.Length();
+				// Create a force in the direction of the wall normal, with a magnitude of the overshoot
+				// SteeringForce = walls[ClosestWall]->Normal() * OverShoot.Length();
+				SteeringForce = vecMultiply(walls[ClosestWall].Normal(), OverShoot.lenth());
 			}
-
-		}//next feeler
+		} // Next feeler
 
 		return SteeringForce;
 	}
@@ -416,29 +408,38 @@ class steeringBehavior {
 	\--------------------------------------------------------------------*/
 	createFeelers()	{
 		// Feeler pointing straight in front
-		m_Feelers[0] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength *
-			m_pLH_Bot->Heading() * m_pLH_Bot->Speed();
+		// m_Feelers[0] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength * m_pLH_Bot->Heading() * m_pLH_Bot->Speed();
+		this.feelers[0] = vecAdd(this.shape.pos(), vecMultiply(vecMultiply(this.shape.getHeading(), this.shape.getSpeed()), this.wallDetectionFeelerLength));
+
+		var temp = new Vector2D();
 
 		// Feeler to left
-		Vector2D temp = m_pLH_Bot->Heading();
-		Vec2DRotateAroundOrigin(temp, HalfPi * 3.5);
-		m_Feelers[1] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength / 2.0 * temp;
+		// Vector2D temp = m_pLH_Bot->Heading();
+		temp = this.shape.getHeading();
+		// Vec2DRotateAroundOrigin(temp, HalfPi * 3.5);
+		vec2DRotateAroundOrigin(temp, HalfPi * 3.5);
+		// m_Feelers[1] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength / 2.0 * temp;
+		this.feelers[1] = vecAdd(this.shape.pos(), vecMultiply(temp, (this.wallDetectionFeelerLength / 2.0)));
 
 		// Feeler to right
-		temp = m_pLH_Bot->Heading();
-		Vec2DRotateAroundOrigin(temp, HalfPi * 0.5);
-		m_Feelers[2] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength / 2.0 * temp;
+		// temp = m_pLH_Bot->Heading();
+		temp = this.shape.getHeading();
+		// Vec2DRotateAroundOrigin(temp, HalfPi * 0.5);
+		vec2DRotateAroundOrigin(temp, HalfPi * 0.5);
+		// m_Feelers[2] = m_pLH_Bot->Pos() + m_dWallDetectionFeelerLength / 2.0 * temp;
+		this.feelers[2] = vecAdd(this.shape.pos(), vecMultiply(temp, (this.wallDetectionFeelerLength / 2.0)));
 	}
 
-	/*---------------------Separation-------------------------------------\
+	/*---------------------separation-------------------------------------\
 	| - This calculates a force repelling from the other neighbors.
+	| - arg types: Shapes List
 	\--------------------------------------------------------------------*/
-	Vector2D LH_Steering::Separation(const std::list<LH_Bot*>& neighbors)
-	{
-		//iterate through all the neighbors and calculate the vector from the
-		Vector2D SteeringForce;
+	separation(neighbors) {
+		// Iterate through all the neighbors and calculate the vector from them
+		// Vector2D SteeringForce;
+		var SteeringForce = new Vector2D();
 
-		std::list<LH_Bot*>::const_iterator it = neighbors.begin();
+		/* std::list<LH_Bot*>::const_iterator it = neighbors.begin();
 		for (it; it != neighbors.end(); ++it)
 		{
 			//make sure this agent isn't included in the calculations and that
@@ -453,195 +454,80 @@ class steeringBehavior {
 				//from its neighbor.
 				SteeringForce += Vec2DNormalize(ToAgent) / ToAgent.Length();
 			}
+		} */
+		for (var it = neighbors[0]; it < neighbors.length; ++it) {
+			// Ensure this shape is not included in the calculations and that the shape being examined is close enough
+			// *** Also ensure it does not include the evade target ***
+			if ((neighbors[it] != this.shape) && (neighbors[it].isTagged()) && (neighbors[it] != this.targetShape1)) {
+				var toAgent = new Vector2D();
+				toAgent = vecSubtract(this.shape.pos(), neighbors[it].pos());
+				// Scale the force inversely proportional to the shape's distance from its neighbor
+				SteeringForce = vecAdd(SteeringForce, vecDivide(vec2DNormalize(toAgent), toAgent.length()));
+			}
 		}
 
 		return SteeringForce;
 	}
+
+	/*--------------------------------------------------------------------\
+	| - Accessors and Mutators
+	\--------------------------------------------------------------------*/
+	// Target
+	getTarget() {
+		return this.target;
+	}
+	setTarget(t) { // Vector2D
+		this.target = t;
+	}
+
+	// Target Agents
+	setTargetAgent1(agent) { // Shape
+		this.targetShape1 = agent;
+	}
+	setTargetAgent2(agent) { // Shape
+		this.targetShape2 = agent;
+	}
+
+	// Steering Force
+	force() {
+		return this.steeringForce;
+	}
+
+	// Summing method
+	setSummingMethod(sm) {
+		this.summingMethod = summingMethodEnum.sm;
+	}
+
+	// Behavior flags
+	// - On
+	seekOn() { this.flags |= behaviorTypeEnum.seek; }
+	arriveOn() { this.flags |= behaviorTypeEnum.arrive; }
+	wanderOn() { this.flags |= behaviorTypeEnum.wander; }
+	separationOn() { this.flags |= behaviorTypeEnum.separation; }
+	wallAvoidanceOn() { this.flags |= behaviorTypeEnum.wall_avoidance; }
+	// - Off
+	seekOff() { if(this.flagOn(behaviorTypeEnum.seek)) this.flags ^= behaviorTypeEnum.seek; }
+	arriveOff() { if(this.flagOn(behaviorTypeEnum.arrive)) this.flags ^= behaviorTypeEnum.arrive; }
+	wanderOff() { if(this.flagOn(behaviorTypeEnum.wander)) this.flags ^= behaviorTypeEnum.wander; }
+	separationOff() { if(this.flagOn(behaviorTypeEnum.separation)) this.flags ^= behaviorTypeEnum.separation; }
+	wallAvoidanceOff() { if(this.flagOn(behaviorTypeEnum.wall_avoidance)) this.flags ^= behaviorTypeEnum.wall_avoidance; }
+	// - Get State
+	seekIsOn() { return this.flagOn(behaviorTypeEnum.seek); }
+	arriveIsOn() { return this.flagOn(behaviorTypeEnum.arrive); }
+	wanderIsOn() { return this.flagOn(behaviorTypeEnum.wander); }
+	separationIsOn() { return this.flagOn(behaviorTypeEnum.separation); }
+	wallAvoidanceIsOn() { return this.flagOn(behaviorTypeEnum.wall_avoidance); }
+	
+	// Feelers
+	getFeelers() {
+		return this.feelers;
+	}
+
+	// Wander stats
+	getWanderJitter() { return this.wanderJitter; }
+	getWanderDistance() { return this.wanderDistance; }
+	getWanderRadius() { return this.wanderRadius; }
+
+	// Separation Weight
+	getSeparationWeight() { return this.weightSeparation; }
 }
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////
-
-/*---------------------Constants--------------------------------------\
-\--------------------------------------------------------------------*/
-
-// The radius of the constraining circle for the wander behavior
-const double WanderRad    = 1.2;
-// Distance the wander circle is projected in front of the agent
-const double WanderDist   = 2.0;
-// The maximum amount of displacement along the circle each frame
-const double WanderJitterPerSec = 40.0;
-
-/*---------------------Steering---------------------------------------\
-\--------------------------------------------------------------------*/
-class LH_Steering
-{
-public:
-  
-  enum summing_method{weighted_average, prioritized, dithered};
-
-private:
-
-  enum behavior_type
-  {
-    none               = 0x00000,
-    seek               = 0x00002,
-    arrive             = 0x00008,
-    wander             = 0x00010,
-    separation         = 0x00040,
-    wall_avoidance     = 0x00200,
-  };
-
-private:
-
-  
-  // A pointer to the owner of this instance
-  LH_Bot*     m_pLH_Bot; 
-  
-  // Pointer to the world data
-  LH_Game*    m_pWorld;
-  
-  // The steering force created by the combined effect of all
-  // the selected behaviors
-  Vector2D       m_vSteeringForce;
- 
-  // These can be used to keep track of friends, pursuers, or prey
-  LH_Bot*     m_pTargetAgent1;
-  LH_Bot*     m_pTargetAgent2;
-
-  // The current target
-  Vector2D    m_vTarget;
-
-  // A vertex buffer to contain the feelers rqd for wall avoidance  
-  std::vector<Vector2D> m_Feelers;
-  
-  // The length of the 'feeler/s' used in wall detection
-  double                 m_dWallDetectionFeelerLength;
-
-  // The current position on the wander circle the agent is
-  // attempting to steer towards
-  Vector2D     m_vWanderTarget; 
-
-  // Explained above
-  double        m_dWanderJitter;
-  double        m_dWanderRadius;
-  double        m_dWanderDistance;
-
-  // Multipliers. These can be adjusted to effect strength of the  
-  // appropriate behavior.
-  double        m_dWeightSeparation;
-  double        m_dWeightWander;
-  double        m_dWeightWallAvoidance;
-  double        m_dWeightSeek;
-  double        m_dWeightArrive;
-
-  // How far the agent can 'see'
-  double        m_dViewDistance;
-
-  // Binary flags to indicate whether or not a behavior should be active
-  int           m_iFlags;
-
-  // Arrive makes use of these to determine how quickly a LH_Bot
-  // should decelerate to its target
-  enum Deceleration{slow = 3, normal = 2, fast = 1};
-
-  // Default
-  Deceleration m_Deceleration;
-
-  // Is cell space partitioning to be used or not?
-  bool          m_bCellSpaceOn;
- 
-  // What type of method is used to sum any active behavior
-  summing_method  m_SummingMethod;
-
-  // This function tests if a specific bit of m_iFlags is set
-  bool      On(behavior_type bt){return (m_iFlags & bt) == bt;}
-
-  bool      AccumulateForce(Vector2D &sf, Vector2D ForceToAdd);
-
-  // Creates the antenna utilized by the wall avoidance behavior
-  void      CreateFeelers();
-
-   /*---------------------NOTES------------------------------------------\
-   | - BEGIN BEHAVIOR DECELARATIONS
-   \--------------------------------------------------------------------*/
-
-  // This behavior moves the agent towards a target position
-  Vector2D Seek(const Vector2D &target);
-
-  // This behavior is similar to seek but it attempts to arrive 
-  // at the target with a zero velocity
-  Vector2D Arrive(const Vector2D    &target,
-                  const Deceleration deceleration);
-
-  // This behavior makes the agent wander about randomly
-  Vector2D Wander();
-
-  // This returns a steering force which will keep the agent away from any
-  // walls it may encounter
-  Vector2D WallAvoidance(const std::vector<Wall2D*> &walls);
-
-  Vector2D Separation(const std::list<LH_Bot*> &agents);
-
-  /*---------------------NOTES------------------------------------------\
-  | - END BEHAVIOR DECELARATIONS
-  \--------------------------------------------------------------------*/
-
-  // Calculates and sums the steering forces from any active behaviors
-  Vector2D CalculatePrioritized();
-  
-public:
-
-  LH_Steering(LH_Game* world, LH_Bot* agent);
-
-  virtual ~LH_Steering();
-
-  // Calculates and sums the steering forces from any active behaviors
-  Vector2D Calculate();
-
-  // Calculates the component of the steering force that is parallel
-  // with the LH_Bot heading
-  double    ForwardComponent();
-
-  // Calculates the component of the steering force that is perpendicuar
-  // with the LH_Bot heading
-  double    SideComponent();
-
-  void      SetTarget(Vector2D t){m_vTarget = t;}
-  Vector2D  Target()const{return m_vTarget;}
-
-  void      SetTargetAgent1(LH_Bot* Agent){m_pTargetAgent1 = Agent;}
-  void      SetTargetAgent2(LH_Bot* Agent){m_pTargetAgent2 = Agent;}
-
-  Vector2D  Force()const{return m_vSteeringForce;}
-
-  void      SetSummingMethod(summing_method sm){m_SummingMethod = sm;}
-
-  void SeekOn(){m_iFlags |= seek;}
-  void ArriveOn(){m_iFlags |= arrive;}
-  void WanderOn(){m_iFlags |= wander;}
-  void SeparationOn(){m_iFlags |= separation;}
-  void WallAvoidanceOn(){m_iFlags |= wall_avoidance;}
-
-  void SeekOff()  {if(On(seek))   m_iFlags ^=seek;}
-  void ArriveOff(){if(On(arrive)) m_iFlags ^=arrive;}
-  void WanderOff(){if(On(wander)) m_iFlags ^=wander;}
-  void SeparationOff(){if(On(separation)) m_iFlags ^=separation;}
-  void WallAvoidanceOff(){if(On(wall_avoidance)) m_iFlags ^=wall_avoidance;}
-
-  bool SeekIsOn(){return On(seek);}
-  bool ArriveIsOn(){return On(arrive);}
-  bool WanderIsOn(){return On(wander);}
-  bool SeparationIsOn(){return On(separation);}
-  bool WallAvoidanceIsOn(){return On(wall_avoidance);}
-
-  const std::vector<Vector2D>& GetFeelers()const{return m_Feelers;}
-  
-  double WanderJitter()const{return m_dWanderJitter;}
-  double WanderDistance()const{return m_dWanderDistance;}
-  double WanderRadius()const{return m_dWanderRadius;}
-
-  double SeparationWeight()const{return m_dWeightSeparation;}
-};
