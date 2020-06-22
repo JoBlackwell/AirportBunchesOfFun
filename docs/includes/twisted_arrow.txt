@@ -1,8 +1,0 @@
-[database]
-driver = sqlsrv
-host = LAPTOP-OAKKL3S3\SQLEXPRESS01
-port = 
-schema = dbo
-db = FlyWithButchOhareDB_Copy
-username = DevTeam@flywithbutchohareserver
-password = Developers#60666
