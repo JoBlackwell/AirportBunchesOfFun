@@ -145,6 +145,7 @@ body {
     width: 40%;
     height: 100%;
     background-color: #ffffff;
+    font-family: Lato-Medium;
     text-align: center;
     top: 0px;
     left: 38%;
@@ -174,17 +175,14 @@ body {
     color: #fff;
 }
 table th {
-    background-color: #23253c;
+    background-color: #1f262f;
     font-size: 54pt;
-    /* margin-bottom: 1em;
-    width: 100%; */
 }
 table th.after {
     background-color: #fff;
 }
 table td {
-    /* margin-top: 0.2vh; */
-    background-color: #607d8b;
+    background-color: #1c9cd8;
     font-size: 36pt;
 }
 table td.after {

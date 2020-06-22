@@ -318,7 +318,7 @@ game.top10players = {
                     scoreHolder = leaders[i].score.toString();
 
                     if (game.player.initials.toString() == placeHolder && game.player.score.toString() == scoreHolder) {
-                        tableBuilder += rowPrefix + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + place + "</td>" + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + leaders[i].user + "</td>" + dataPrefix + " style='background-color: #f41c63;' name='top10s'>" + scoreHolder + "</td></tr>";
+                        tableBuilder += rowPrefix + dataPrefix + " style='background-color: #ed1d65;' name='top10s'>" + place + "</td>" + dataPrefix + " style='background-color: #ed1d65;' name='top10s'>" + leaders[i].user + "</td>" + dataPrefix + " style='background-color: #ed1d65;' name='top10s'>" + scoreHolder + "</td></tr>";
                     } else {
                         tableBuilder += rowPrefix + dataPrefix + " name='top10s'>" + place + "</td>" + dataPrefix + " name='top10s'>" + leaders[i].user + "</td>" + dataPrefix + " name='top10s'>" + scoreHolder + "</td></tr>";
                     }
